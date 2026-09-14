@@ -1,6 +1,6 @@
-import { Home, Store, Heart, MessageSquare, User } from "lucide-react";
+import { Home, Compass, PlaySquare, MessageSquare, User } from "lucide-react";
 
-export type NavTab = "home" | "stores" | "favorites" | "chat" | "profile";
+export type NavTab = "home" | "explore" | "reels" | "chat" | "profile";
 
 export function BottomNavigation({
   activeTab,
@@ -15,15 +15,15 @@ export function BottomNavigation({
 }) {
   const tabs = [
     { id: "home", label: "الرئيسية", icon: Home },
-    { id: "stores", label: "المتاجر", icon: Store },
-    { id: "favorites", label: "المفضلة", icon: Heart, badge: favoritesCount },
+    { id: "explore", label: "استكشاف", icon: Compass },
+    { id: "reels", label: "ريلز", icon: PlaySquare },
     { id: "chat", label: "الشات", icon: MessageSquare, badge: unreadChatCount },
     { id: "profile", label: "حسابي", icon: User },
   ];
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200/80 bg-white/95 backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/95">
-      <div className="mx-auto flex max-w-md items-center justify-around py-2">
+      <div className="mx-auto flex max-w-md items-center justify-around py-2 dir-rtl">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;

@@ -3,11 +3,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/layout/Header";
 import { MobileMenuDrawer } from "@/components/layout/MobileMenuDrawer";
 import { HomeScreen } from "@/components/home/HomeScreen";
+import { ExploreScreen } from "@/components/explore/ExploreScreen";
+import { ReelsFeed } from "@/components/social/ReelsFeed";
 import { ProductCard } from "@/components/product/ProductCard";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { StoryViewerModal } from "@/components/stories/StoryViewerModal";
 import { NotificationsDrawer } from "@/components/notifications/NotificationsDrawer";
 import { StoreProfileModal } from "@/components/store/StoreProfileModal";
+import { UserProfileModal } from "@/components/social/UserProfileModal";
 import { BottomNavigation, NavTab } from "@/components/layout/BottomNavigation";
 import { ChatList } from "@/components/chat/ChatList";
 import { ChatRoom } from "@/components/chat/ChatRoom";
@@ -27,6 +30,7 @@ export default function IndexPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
   const [activeStory, setActiveStory] = useState<Story | null>(null);
   const [activeStore, setActiveStore] = useState<Store | null>(null);
   const [activeConversation, setActiveConversation] = useState<Conversation | null>(null);
@@ -86,46 +90,27 @@ export default function IndexPage() {
           />
         )}
 
-        {activeTab === "stores" && (
-          <section className="space-y-3 text-right">
-            <h2 className="text-base font-black">المتاجر المعتمدة</h2>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {MOCK_STORES.map((store) => (
-                <div
-                  key={store.id}
-                  onClick={() => setActiveStore(store)}
-                  className="flex cursor-pointer items-center justify-between rounded-3xl border border-slate-100 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900"
-                >
-                  <div className="flex items-center gap-3">
-                    <img src={store.avatar} alt={store.name} className="size-14 rounded-full object-cover border-2 border-emerald-500" />
-                    <div>
-                      <h3 className="text-xs font-black">{store.name}</h3>
-                      <p className="text-[10px] text-slate-400 mt-1">{store.bio}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
+        {activeTab === "explore" && (
+          <ExploreScreen
+            products={MOCK_PRODUCTS}
+            stores={MOCK_STORES}
+            onSelectProduct={(p) => {
+              const store = MOCK_STORES.find((s) => s.name === p.seller_name);
+              if (store) setActiveStore(store);
+            }}
+            onSelectStore={setActiveStore}
+          />
         )}
 
-        {activeTab === "favorites" && (
-          <section className="space-y-3 text-right">
-            <h2 className="text-base font-black">المنتجات المفضلة ❤️</h2>
-            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-              {favoriteProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  onOpen={() => {
-                    const store = MOCK_STORES.find((s) => s.name === product.seller_name);
-                    if (store) setActiveStore(store);
-                  }}
-                  onAddToCart={handleAddToCart}
-                />
-              ))}
-            </div>
-          </section>
+        {activeTab === "reels" && (
+          <ReelsFeed
+            products={MOCK_PRODUCTS}
+            onAddToCart={handleAddToCart}
+            onOpenProduct={(p) => {
+              const store = MOCK_STORES.find((s) => s.name === p.seller_name);
+              if (store) setActiveStore(store);
+            }}
+          />
         )}
 
         {activeTab === "chat" && (
@@ -148,7 +133,10 @@ export default function IndexPage() {
       <MobileMenuDrawer
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
-        onNavigateTab={(tab) => setActiveTab(tab)}
+        onNavigateTab={(tab) => {
+          if (tab === "profile") setIsUserProfileOpen(true);
+          else setActiveTab(tab);
+        }}
       />
 
       <CartDrawer isOpen={isCartOpen} items={cartItems} onClose={() => setIsCartOpen(false)} onUpdateQuantity={handleUpdateQuantity} />
@@ -181,6 +169,15 @@ export default function IndexPage() {
           onAddToCart={handleAddToCart}
         />
       )}
+
+      <UserProfileModal
+        isOpen={isUserProfileOpen}
+        onClose={() => setIsUserProfileOpen(false)}
+        onOpenChat={() => {
+          setActiveTab("chat");
+          setActiveConversation(MOCK_CONVERSATIONS[0]);
+        }}
+      />
 
       {activeConversation && (
         <ChatRoom
