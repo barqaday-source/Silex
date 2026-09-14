@@ -25,6 +25,7 @@ export const Route = createFileRoute("/")({
 export default function IndexPage() {
   const [activeTab, setActiveTab] = useState<NavTab>("home");
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
@@ -33,6 +34,7 @@ export default function IndexPage() {
   const [activeConversation, setActiveConversation] = useState<Conversation | null>(null);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [notifications, setNotifications] = useState<NotificationItem[]>(MOCK_NOTIFICATIONS);
+  const [favoriteProducts, setFavoriteProducts] = useState<Product[]>([MOCK_PRODUCTS[0]]);
 
   const handleAddToCart = (product: Product) => {
     setCartItems((prev) => {
@@ -56,15 +58,21 @@ export default function IndexPage() {
     );
   };
 
-  const filteredProducts = selectedCategory === "all"
-    ? MOCK_PRODUCTS
-    : MOCK_PRODUCTS.filter((p) => p.category === selectedCategory);
+  const filteredProducts = MOCK_PRODUCTS.filter((p) => {
+    const matchesCategory = selectedCategory === "all" || p.category === selectedCategory;
+    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                          p.seller_name.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white pb-16">
+      {/* Global Clean Shell Header */}
       <Header
         cartCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
         unreadNotificationsCount={notifications.filter((n) => !n.read).length}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
         onOpenCart={() => setIsCartOpen(true)}
         onOpenNotifications={() => setIsNotificationsOpen(true)}
         onOpenMenu={() => setIsMenuOpen(true)}
@@ -120,6 +128,25 @@ export default function IndexPage() {
           </section>
         )}
 
+        {activeTab === "favorites" && (
+          <section className="space-y-3 text-right">
+            <h2 className="text-base font-black">المنتجات المفضلة ❤️</h2>
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+              {favoriteProducts.map((product) => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onOpen={() => {
+                    const store = MOCK_STORES.find(s => s.name === product.seller_name);
+                    if (store) setActiveStore(store);
+                  }}
+                  onAddToCart={handleAddToCart}
+                />
+              ))}
+            </div>
+          </section>
+        )}
+
         {activeTab === "chat" && (
           <ChatList
             conversations={MOCK_CONVERSATIONS}
@@ -130,17 +157,23 @@ export default function IndexPage() {
         {activeTab === "profile" && <ProfileScreen />}
       </main>
 
-      {/* BOTTOM NAVIGATION */}
+      {/* GLOBAL BOTTOM NAVIGATION */}
       <BottomNavigation
         activeTab={activeTab}
         unreadChatCount={MOCK_CONVERSATIONS.reduce((acc, c) => acc + c.unreadCount, 0)}
+        favoritesCount={favoriteProducts.length}
         onTabChange={setActiveTab}
       />
 
-      {/* MODALS & DRAWERS */}
-      <MobileMenuDrawer isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-      <CartDrawer isOpen={isCartOpen} items={cartItems} onClose={() => setIsCartOpen(false)} onUpdateQuantity={handleUpdateQuantity} />
+      {/* DRAWERS & MODALS */}
+      <MobileMenuDrawer
+        isOpen={isMenuOpen}
+        onClose={() => setIsMenuOpen(false)}
+        onNavigateTab={(tab) => setActiveTab(tab)}
+      />
       
+      <CartDrawer isOpen={isCartOpen} items={cartItems} onClose={() => setIsCartOpen(false)} onUpdateQuantity={handleUpdateQuantity} />
+
       {isNotificationsOpen && (
         <NotificationsDrawer
           notifications={notifications}
