@@ -6,6 +6,7 @@ export type Store = {
   bio?: string;
   phone?: string;
   location?: string;
+  rating?: number;
 };
 
 export type Story = {
@@ -43,4 +44,36 @@ export type Product = {
 
 export type CartItem = Product & {
   quantity: number;
+};
+
+export type ChatMessage = {
+  id: string;
+  sender: 'user' | 'store';
+  text?: string;
+  time: string;
+  type?: 'text' | 'product' | 'order' | 'offer';
+  productDetails?: {
+    id: string;
+    name: string;
+    price: number;
+    image: string;
+  };
+  orderDetails?: {
+    orderId: string;
+    status: string;
+  };
+};
+
+export type Conversation = {
+  id: string;
+  storeId: string;
+  storeName: string;
+  storeAvatar: string;
+  isOnline: boolean;
+  unreadCount: number;
+  lastMessage: string;
+  lastTime: string;
+  relatedProductName?: string;
+  hasActiveOrder?: boolean;
+  messages: ChatMessage[];
 };
