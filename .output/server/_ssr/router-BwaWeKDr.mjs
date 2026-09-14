@@ -3,10 +3,10 @@ import { n as require_jsx_runtime, r as require_react, t as QueryClientProvider 
 import { c as createFileRoute, d as useRouter, i as HeadContent, l as createRootRouteWithContext, o as createRouter, r as Scripts, s as Outlet, u as Link } from "../_libs/@tanstack/react-router+[...].mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
 import { A as History, B as ChevronDown, C as MessageSquare, D as LogOut, E as MapPin, F as CreditCard, G as Barcode, H as CheckCheck, I as CircleQuestionMark, J as ArrowRight, K as Award, L as CirclePlus, M as Globe, N as Gauge, O as Info, P as FileText, R as CircleCheck, S as PackageCheck, T as Menu, U as Bot, V as Check, W as Bell, Y as ArrowDown, _ as Search, a as TriangleAlert, b as Phone, c as Tag, d as ShoppingBag, f as ShieldCheck, g as Send, h as Settings2, i as UserRound, j as Heart, k as House, l as Store, m as Settings, n as Wallet, o as TrendingUp, p as Share2, q as ArrowUp, r as User, s as Ticket, t as X, u as Sparkles, v as QrCode, w as MessageCircle, x as Package, y as Plus, z as ChevronLeft } from "../_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-oIXFMig7.js
+//#region node_modules/.nitro/vite/services/ssr/assets/router-BwaWeKDr.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-YLRBzxSB.css";
+var styles_default = "/assets/styles-Ci9i68qI.css";
 function reportLovableError(error, context = {}) {
 	if (typeof window === "undefined") return;
 	window.__lovableEvents?.captureException?.(error, {
