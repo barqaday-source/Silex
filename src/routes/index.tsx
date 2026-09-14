@@ -3,14 +3,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/layout/Header";
 import { MobileMenuDrawer } from "@/components/layout/MobileMenuDrawer";
 import { HomeScreen } from "@/components/home/HomeScreen";
-import { ExploreScreen } from "@/components/explore/ExploreScreen";
-import { ReelsFeed } from "@/components/social/ReelsFeed";
 import { ProductCard } from "@/components/product/ProductCard";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { StoryViewerModal } from "@/components/stories/StoryViewerModal";
 import { NotificationsDrawer } from "@/components/notifications/NotificationsDrawer";
 import { StoreProfileModal } from "@/components/store/StoreProfileModal";
-import { UserProfileModal } from "@/components/social/UserProfileModal";
 import { BottomNavigation, NavTab } from "@/components/layout/BottomNavigation";
 import { ChatList } from "@/components/chat/ChatList";
 import { ChatRoom } from "@/components/chat/ChatRoom";
@@ -30,13 +27,11 @@ export default function IndexPage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
-  const [isUserProfileOpen, setIsUserProfileOpen] = useState(false);
   const [activeStory, setActiveStory] = useState<Story | null>(null);
   const [activeStore, setActiveStore] = useState<Store | null>(null);
   const [activeConversation, setActiveConversation] = useState<Conversation | null>(null);
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [notifications, setNotifications] = useState<NotificationItem[]>(MOCK_NOTIFICATIONS);
-  const [favoriteProducts, setFavoriteProducts] = useState<Product[]>([MOCK_PRODUCTS[0]]);
 
   const handleAddToCart = (product: Product) => {
     setCartItems((prev) => {
@@ -90,27 +85,27 @@ export default function IndexPage() {
           />
         )}
 
-        {activeTab === "explore" && (
-          <ExploreScreen
-            products={MOCK_PRODUCTS}
-            stores={MOCK_STORES}
-            onSelectProduct={(p) => {
-              const store = MOCK_STORES.find((s) => s.name === p.seller_name);
-              if (store) setActiveStore(store);
-            }}
-            onSelectStore={setActiveStore}
-          />
-        )}
-
-        {activeTab === "reels" && (
-          <ReelsFeed
-            products={MOCK_PRODUCTS}
-            onAddToCart={handleAddToCart}
-            onOpenProduct={(p) => {
-              const store = MOCK_STORES.find((s) => s.name === p.seller_name);
-              if (store) setActiveStore(store);
-            }}
-          />
+        {activeTab === "stores" && (
+          <section className="space-y-3 text-right">
+            <h2 className="text-base font-black">المتاجر المعتمدة</h2>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {MOCK_STORES.map((store) => (
+                <button
+                  key={store.id}
+                  onClick={() => setActiveStore(store)}
+                  className="flex items-center justify-between rounded-3xl border border-slate-100 bg-white p-4 text-right shadow-sm dark:border-slate-800 dark:bg-slate-900"
+                >
+                  <div className="flex items-center gap-3">
+                    <img src={store.avatar} alt={store.name} className="size-14 rounded-full object-cover border-2 border-emerald-500" />
+                    <div>
+                      <h3 className="text-xs font-black">{store.name}</h3>
+                      <p className="text-[10px] text-slate-400 mt-1">{store.bio}</p>
+                    </div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </section>
         )}
 
         {activeTab === "chat" && (
@@ -126,7 +121,6 @@ export default function IndexPage() {
       <BottomNavigation
         activeTab={activeTab}
         unreadChatCount={MOCK_CONVERSATIONS.reduce((acc, c) => acc + c.unreadCount, 0)}
-        favoritesCount={favoriteProducts.length}
         onTabChange={setActiveTab}
       />
 
@@ -134,8 +128,7 @@ export default function IndexPage() {
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
         onNavigateTab={(tab) => {
-          if (tab === "profile") setIsUserProfileOpen(true);
-          else setActiveTab(tab);
+          setActiveTab(tab);
         }}
       />
 
@@ -169,15 +162,6 @@ export default function IndexPage() {
           onAddToCart={handleAddToCart}
         />
       )}
-
-      <UserProfileModal
-        isOpen={isUserProfileOpen}
-        onClose={() => setIsUserProfileOpen(false)}
-        onOpenChat={() => {
-          setActiveTab("chat");
-          setActiveConversation(MOCK_CONVERSATIONS[0]);
-        }}
-      />
 
       {activeConversation && (
         <ChatRoom

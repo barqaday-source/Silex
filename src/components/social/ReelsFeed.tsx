@@ -43,11 +43,13 @@ export function ReelsFeed({
     },
   ];
 
-  const current = reels[activeReelIndex];
+  const current = reels[activeReelIndex] ?? reels[0];
+  if (!current) return null;
+  const isCurrentLiked = !!liked[current.id];
+  const isCurrentSaved = !!saved[current.id];
 
   return (
     <div className="relative mx-auto h-[calc(100vh-140px)] w-full max-w-md overflow-hidden rounded-3xl bg-black text-white shadow-2xl">
-      {/* Background Visual Overlay Simulation */}
       <div className={`absolute inset-0 ${current.bgGradient} flex flex-col justify-between p-5`}>
         {/* Top Header */}
         <div className="flex items-center justify-between z-10 pt-2">
@@ -62,7 +64,7 @@ export function ReelsFeed({
           </span>
         </div>
 
-        {/* Center Navigation Triggers */}
+        {/* Navigation */}
         <div className="absolute inset-x-0 top-1/2 flex -translate-y-1/2 justify-between px-2 z-0">
           <button
             onClick={() => setActiveReelIndex((prev) => (prev > 0 ? prev - 1 : reels.length - 1))}
@@ -78,16 +80,16 @@ export function ReelsFeed({
           </button>
         </div>
 
-        {/* Floating Right Actions */}
+        {/* Right Actions */}
         <div className="absolute left-4 bottom-24 flex flex-col items-center gap-5 z-10">
           <button
             onClick={() => setLiked((prev) => ({ ...prev, [current.id]: !prev[current.id] }))}
             className="flex flex-col items-center gap-1"
           >
-            <div className={`grid size-11 place-items-center rounded-full backdrop-blur-md ${liked[current.id] ? "bg-rose-500 text-white" : "bg-black/40 text-white"}`}>
-              <Heart size={22} fill={liked[current.id] ? "currentColor" : "none"} />
+            <div className={`grid size-11 place-items-center rounded-full backdrop-blur-md ${isCurrentLiked ? "bg-rose-500 text-white" : "bg-black/40 text-white"}`}>
+              <Heart size={22} fill={isCurrentLiked ? "currentColor" : "none"} />
             </div>
-            <span className="text-[10px] font-bold">{(current.likesCount + (liked[current.id] ? 1 : 0)).toLocaleString()}</span>
+            <span className="text-[10px] font-bold">{(current.likesCount + (isCurrentLiked ? 1 : 0)).toLocaleString()}</span>
           </button>
 
           <button className="flex flex-col items-center gap-1">
@@ -101,8 +103,8 @@ export function ReelsFeed({
             onClick={() => setSaved((prev) => ({ ...prev, [current.id]: !prev[current.id] }))}
             className="flex flex-col items-center gap-1"
           >
-            <div className={`grid size-11 place-items-center rounded-full backdrop-blur-md ${saved[current.id] ? "bg-amber-500 text-white" : "bg-black/40 text-white"}`}>
-              <Bookmark size={22} fill={saved[current.id] ? "currentColor" : "none"} />
+            <div className={`grid size-11 place-items-center rounded-full backdrop-blur-md ${isCurrentSaved ? "bg-amber-500 text-white" : "bg-black/40 text-white"}`}>
+              <Bookmark size={22} fill={isCurrentSaved ? "currentColor" : "none"} />
             </div>
             <span className="text-[10px] font-bold">حفظ</span>
           </button>
@@ -115,9 +117,8 @@ export function ReelsFeed({
           </button>
         </div>
 
-        {/* Bottom Content & Direct Commerce Card */}
+        {/* Bottom Details */}
         <div className="space-y-3 z-10 text-right pr-12">
-          {/* Creator Profile Link */}
           <div className="flex items-center justify-end gap-2.5">
             <span className="rounded-full bg-emerald-500 px-2.5 py-0.5 text-[10px] font-black text-white">متابعة</span>
             <div>
@@ -132,11 +133,10 @@ export function ReelsFeed({
 
           <p className="text-xs text-slate-200 leading-relaxed font-medium">{current.description}</p>
 
-          {/* Commerce Tag Widget */}
           {current.product && (
             <div className="flex items-center justify-between rounded-2xl bg-white/10 p-3 backdrop-blur-md border border-white/20">
               <button
-                onClick={() => onAddToCart(current.product)}
+                onClick={() => onAddToCart(current.product!)}
                 className="flex items-center gap-1.5 rounded-xl bg-emerald-500 px-3 py-2 text-xs font-black text-white shadow-lg transition hover:bg-emerald-600"
               >
                 <ShoppingBag size={15} />
@@ -144,7 +144,7 @@ export function ReelsFeed({
               </button>
 
               <div
-                onClick={() => onOpenProduct(current.product)}
+                onClick={() => onOpenProduct(current.product!)}
                 className="flex cursor-pointer items-center gap-2.5 text-right"
               >
                 <div>

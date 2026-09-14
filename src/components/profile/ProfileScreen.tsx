@@ -22,6 +22,8 @@ import {
   ChevronLeft,
   CheckCircle2,
 } from "lucide-react";
+import { MerchantAiAssistant } from "@/components/ai/MerchantAiAssistant";
+import { InventoryManager } from "@/components/inventory/InventoryManager";
 
 export function ProfileScreen() {
   const [accountMode, setAccountMode] = useState<"personal" | "seller">("personal");
@@ -226,6 +228,9 @@ export function ProfileScreen() {
       ) : (
         /* SELLER DASHBOARD CONTROLS */
         <div className="space-y-3">
+          <InventoryManager />
+          <MerchantAiAssistant />
+
           <div className="grid grid-cols-2 gap-2">
             <button className="flex flex-col items-center justify-center rounded-3xl bg-emerald-500 p-4 text-white shadow-md hover:bg-emerald-600 transition space-y-2">
               <PlusCircle size={24} />

@@ -1,23 +1,20 @@
-import { Home, Compass, PlaySquare, MessageSquare, User } from "lucide-react";
+import { Home, MessageSquare, Store, User } from "lucide-react";
 
-export type NavTab = "home" | "explore" | "reels" | "chat" | "profile";
+export type NavTab = "home" | "chat" | "stores" | "profile";
 
 export function BottomNavigation({
   activeTab,
   unreadChatCount,
-  favoritesCount,
   onTabChange,
 }: {
   activeTab: NavTab;
   unreadChatCount: number;
-  favoritesCount: number;
   onTabChange: (tab: NavTab) => void;
 }) {
   const tabs = [
     { id: "home", label: "الرئيسية", icon: Home },
-    { id: "explore", label: "استكشاف", icon: Compass },
-    { id: "reels", label: "ريلز", icon: PlaySquare },
-    { id: "chat", label: "الشات", icon: MessageSquare, badge: unreadChatCount },
+    { id: "stores", label: "المتاجر", icon: Store },
+    { id: "chat", label: "المحادثات", icon: MessageSquare, badge: unreadChatCount },
     { id: "profile", label: "حسابي", icon: User },
   ];
 
