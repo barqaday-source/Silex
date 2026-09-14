@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/layout/Header";
 import { MobileMenuDrawer } from "@/components/layout/MobileMenuDrawer";
 import { CategoryBar } from "@/components/home/CategoryBar";
@@ -11,6 +12,10 @@ import { NotificationsDrawer } from "@/components/notifications/NotificationsDra
 import { StoreProfileModal } from "@/components/store/StoreProfileModal";
 import { MOCK_PRODUCTS, MOCK_STORIES, MOCK_STORES, MOCK_NOTIFICATIONS } from "@/data/mock";
 import { Product, Story, CartItem, NotificationItem, Store } from "@/types";
+
+export const Route = createFileRoute("/")({
+  component: IndexPage,
+});
 
 export default function IndexPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
