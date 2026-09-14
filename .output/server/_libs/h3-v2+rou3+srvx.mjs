@@ -1,12 +1,12 @@
-//#region node_modules/srvx/dist/adapters/cloudflare.mjs
-var FastURL = URL;
-var FastResponse = Response;
-//#endregion
 //#region node_modules/rou3/dist/index.mjs
 var NullProtoObj = /* @__PURE__ */ (() => {
 	const e = function() {};
 	return e.prototype = Object.create(null), Object.freeze(e.prototype), e;
 })();
+//#endregion
+//#region node_modules/srvx/dist/adapters/cloudflare.mjs
+var FastURL = URL;
+var FastResponse = Response;
 //#endregion
 //#region node_modules/h3-v2/dist/h3-Bz4OPZv_.mjs
 function decodePathname(pathname) {
@@ -291,4 +291,4 @@ function errorResponse(error, debug, errHeaders) {
 	});
 }
 //#endregion
-export { toResponse as n, FastResponse as r, H3Event as t };
+export { toResponse as n, H3Event as t };

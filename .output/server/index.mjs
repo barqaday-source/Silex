@@ -1,7 +1,7 @@
 globalThis.__nitro_main__ = import.meta.url;
 import { i as HTTPError, n as defineLazyEventHandler, t as H3Core } from "./_libs/h3+rou3+srvx.mjs";
 import { t as HookableCore } from "./_libs/hookable.mjs";
-import { r as FastResponse } from "./_libs/h3-v2+rou3+srvx.mjs";
+import { t as FastResponse } from "./_libs/srvx.mjs";
 //#region #nitro-vite-setup
 function lazyService(loader) {
 	let promise, mod;
@@ -16,54 +16,33 @@ globalThis.__nitro_vite_envs__ = services;
 //#endregion
 //#region #nitro/virtual/public-assets-data
 var public_assets_data_default = {
-	"/favicon.png": {
-		"type": "image/png",
-		"etag": "\"610-xFWBcyBBd1DWj5fBZePUmYiVSsY\"",
-		"mtime": "2026-09-14T17:34:17.958Z",
-		"size": 1552,
-		"path": "../public/favicon.png"
-	},
 	"/robots.txt": {
 		"type": "text/plain; charset=utf-8",
 		"etag": "\"a0-CKGXSIe7TSsqDTmGm/nY1t/o5d0\"",
-		"mtime": "2026-09-14T17:34:17.958Z",
+		"mtime": "2026-09-14T22:26:40.735Z",
 		"size": 160,
 		"path": "../public/robots.txt"
 	},
-	"/assets/baghdad-TZleSqXO.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"1a4ae-dD0d3maEUjPvuqAXn1gF5IQmvms\"",
-		"mtime": "2026-09-14T17:34:17.144Z",
-		"size": 107694,
-		"path": "../public/assets/baghdad-TZleSqXO.jpg"
-	},
-	"/assets/portrait-Cgr-cQjW.jpg": {
-		"type": "image/jpeg",
-		"etag": "\"c9cb-nIe3m/o5FXuLzF64cjobBCE3pPA\"",
-		"mtime": "2026-09-14T17:34:17.145Z",
-		"size": 51659,
-		"path": "../public/assets/portrait-Cgr-cQjW.jpg"
-	},
-	"/assets/routes-bO-OiJ7L.js": {
-		"type": "text/javascript; charset=utf-8",
-		"etag": "\"fe03-h902kKd4CylnWfUQNRJMbs2Pw9c\"",
-		"mtime": "2026-09-14T17:34:17.144Z",
-		"size": 65027,
-		"path": "../public/assets/routes-bO-OiJ7L.js"
-	},
-	"/assets/styles-CN7CAWUs.css": {
+	"/assets/styles-dBNich0t.css": {
 		"type": "text/css; charset=utf-8",
-		"etag": "\"1bf17-3IEusGd9Zo5saH7i/LHwYgeBDrY\"",
-		"mtime": "2026-09-14T17:34:17.145Z",
-		"size": 114455,
-		"path": "../public/assets/styles-CN7CAWUs.css"
+		"etag": "\"1f39c-ez6vGb9xgcW4i0BWsvWs787MDJc\"",
+		"mtime": "2026-09-14T22:26:39.813Z",
+		"size": 127900,
+		"path": "../public/assets/styles-dBNich0t.css"
 	},
-	"/assets/index-CrKqH50m.js": {
+	"/favicon.png": {
+		"type": "image/png",
+		"etag": "\"610-xFWBcyBBd1DWj5fBZePUmYiVSsY\"",
+		"mtime": "2026-09-14T22:26:40.735Z",
+		"size": 1552,
+		"path": "../public/favicon.png"
+	},
+	"/assets/index-C5bVK4TQ.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"91aa9-VyegKXVsMyeEDH3mwry2QNa/TXo\"",
-		"mtime": "2026-09-14T17:34:17.144Z",
-		"size": 596649,
-		"path": "../public/assets/index-CrKqH50m.js"
+		"etag": "\"98f3d-xZ9hS3Gstsdb2ml5LtwuBaar644\"",
+		"mtime": "2026-09-14T22:26:39.812Z",
+		"size": 626493,
+		"path": "../public/assets/index-C5bVK4TQ.js"
 	}
 };
 //#endregion
@@ -75,7 +54,7 @@ function isPublicAssetURL(id = "") {
 	return false;
 }
 //#endregion
-//#region node_modules/nitro/dist/runtime/internal/route-rules.mjs
+//#region node_modules/.pnpm/nitro@3.0.260603-beta_jiti@2.7.0_vite@8.1.5_@types+node@22.20.2_jiti@2.7.0_/node_modules/nitro/dist/runtime/internal/route-rules.mjs
 var headers = ((m) => function headersRouteRule(event) {
 	for (const [key, value] of Object.entries(m.options || {})) event.res.headers.set(key, value);
 });
@@ -101,11 +80,11 @@ var findRouteRules = /* @__PURE__ */ (() => {
 		return r;
 	};
 })();
-var _lazy_ss3zXM = defineLazyEventHandler(() => import("./_chunks/ssr-renderer.mjs"));
+var _lazy_0ZShP4 = defineLazyEventHandler(() => import("./_chunks/ssr-renderer.mjs"));
 var findRoute = /* @__PURE__ */ (() => {
 	const data = {
 		route: "/**",
-		handler: _lazy_ss3zXM
+		handler: _lazy_0ZShP4
 	};
 	return ((_m, p) => {
 		return {
@@ -116,7 +95,7 @@ var findRoute = /* @__PURE__ */ (() => {
 })();
 [].filter(Boolean);
 //#endregion
-//#region node_modules/nitro/dist/runtime/internal/error/prod.mjs
+//#region node_modules/.pnpm/nitro@3.0.260603-beta_jiti@2.7.0_vite@8.1.5_@types+node@22.20.2_jiti@2.7.0_/node_modules/nitro/dist/runtime/internal/error/prod.mjs
 var errorHandler = (error, event) => {
 	const res = defaultHandler(error, event);
 	return new FastResponse(typeof res.body === "string" ? res.body : JSON.stringify(res.body, null, 2), res);
@@ -205,7 +184,7 @@ function createH3App(config) {
 	return h3App;
 }
 //#endregion
-//#region node_modules/nitro/dist/runtime/internal/app.mjs
+//#region node_modules/.pnpm/nitro@3.0.260603-beta_jiti@2.7.0_vite@8.1.5_@types+node@22.20.2_jiti@2.7.0_/node_modules/nitro/dist/runtime/internal/app.mjs
 var APP_ID = "default";
 function useNitroApp() {
 	let instance = useNitroApp._instance;
@@ -259,7 +238,7 @@ function getRouteRules(method, pathname) {
 	};
 }
 //#endregion
-//#region node_modules/nitro/dist/presets/cloudflare/runtime/_module-handler.mjs
+//#region node_modules/.pnpm/nitro@3.0.260603-beta_jiti@2.7.0_vite@8.1.5_@types+node@22.20.2_jiti@2.7.0_/node_modules/nitro/dist/presets/cloudflare/runtime/_module-handler.mjs
 function createHandler(hooks) {
 	const nitroApp = useNitroApp();
 	const nitroHooks = useNitroHooks();
@@ -333,7 +312,7 @@ function augmentReq(cfReq, ctx) {
 	req.waitUntil = ctx.context?.waitUntil.bind(ctx.context);
 }
 //#endregion
-//#region node_modules/nitro/dist/presets/cloudflare/runtime/cloudflare-module.mjs
+//#region node_modules/.pnpm/nitro@3.0.260603-beta_jiti@2.7.0_vite@8.1.5_@types+node@22.20.2_jiti@2.7.0_/node_modules/nitro/dist/presets/cloudflare/runtime/cloudflare-module.mjs
 var cloudflare_module_default = createHandler({ fetch(cfRequest, env, context, url) {
 	if (env.ASSETS && isPublicAssetURL(url.pathname)) return env.ASSETS.fetch(cfRequest);
 } });

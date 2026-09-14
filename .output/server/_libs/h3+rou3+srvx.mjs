@@ -1,14 +1,14 @@
-//#region node_modules/h3/node_modules/rou3/dist/index.mjs
+//#region node_modules/.pnpm/rou3@0.9.2/node_modules/rou3/dist/index.mjs
 var NullProtoObj = /* @__PURE__ */ (() => {
 	const e = function() {};
 	return e.prototype = Object.create(null), Object.freeze(e.prototype), e;
 })();
 //#endregion
-//#region node_modules/h3/node_modules/srvx/dist/adapters/cloudflare.mjs
+//#region node_modules/.pnpm/srvx@1.0.4/node_modules/srvx/dist/adapters/cloudflare.mjs
 var FastURL = URL;
 var FastResponse = Response;
 //#endregion
-//#region node_modules/h3/dist/response.mjs
+//#region node_modules/.pnpm/h3@2.0.1-rc.31_crossws@0.4.12_srvx@0.11.22__ocache@0.1.5/node_modules/h3/dist/response.mjs
 var NEEDLESS_ESCAPE_SRC = String.raw`%(?:2[146-9A-E]|3[0-9ABD]|4[0-9A-F]|5[0-9ABDF]|6[1-9A-F]|7[0-9ACE])`;
 var NEEDLESS_ESCAPE_RE = /* @__PURE__ */ new RegExp(NEEDLESS_ESCAPE_SRC, "i");
 var NEEDLESS_ESCAPE_RE_G = /* @__PURE__ */ new RegExp(NEEDLESS_ESCAPE_SRC, "gi");
@@ -334,7 +334,7 @@ function errorResponse(error, debug, errHeaders) {
 	});
 }
 //#endregion
-//#region node_modules/h3/dist/middleware.mjs
+//#region node_modules/.pnpm/h3@2.0.1-rc.31_crossws@0.4.12_srvx@0.11.22__ocache@0.1.5/node_modules/h3/dist/middleware.mjs
 function composeMiddleware(middleware) {
 	let chain = (event, handler) => handler(event);
 	for (let i = middleware.length - 1; i >= 0; i--) {
@@ -369,7 +369,7 @@ function isUnhandledResponse(val) {
 	return val === void 0 || val === kNotFound;
 }
 //#endregion
-//#region node_modules/h3/dist/cache.mjs
+//#region node_modules/.pnpm/h3@2.0.1-rc.31_crossws@0.4.12_srvx@0.11.22__ocache@0.1.5/node_modules/h3/dist/cache.mjs
 function toRequest(input, options) {
 	if (typeof input === "string") {
 		let url = input;

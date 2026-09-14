@@ -1,5 +1,5 @@
 import { Buffer } from "node:buffer";
-//#region node_modules/iceberg-js/dist/index.mjs
+//#region node_modules/.pnpm/iceberg-js@0.8.1/node_modules/iceberg-js/dist/index.mjs
 var IcebergError = class extends Error {
 	constructor(message, opts) {
 		super(message);
@@ -496,7 +496,7 @@ var IcebergRestCatalog = class {
 	}
 };
 //#endregion
-//#region node_modules/@supabase/storage-js/dist/index.mjs
+//#region node_modules/.pnpm/@supabase+storage-js@2.116.0/node_modules/@supabase/storage-js/dist/index.mjs
 function _typeof(o) {
 	"@babel/helpers - typeof";
 	return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(o$1) {
