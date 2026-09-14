@@ -1,32 +1,114 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { Bell, ChevronLeft, ChevronRight, CirclePlus, Clock3, Grid3X3, Heart, Home, Image as ImageIcon, Loader2, LogOut, MapPin, MessageCircle, Mic, MoreHorizontal, Package, Search, Send, Share2, ShoppingBag, SlidersHorizontal, Sparkles, Store, Tag, UserRound, UsersRound, X } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
-import { AuthScreen } from "@/components/AuthScreen";
-import { Button } from "@/components/ui/button";
-import { AuthProvider, useAuth } from "@/hooks/useAuth";
-import { supabase } from "@/integrations/supabase/client";
-import baghdad from "@/assets/baghdad.jpg";
-import portrait from "@/assets/portrait.jpg";
+import { useState } from "react";
+import { Header } from "@/components/layout/Header";
+import { MobileMenuDrawer } from "@/components/layout/MobileMenuDrawer";
+import { CategoryBar } from "@/components/home/CategoryBar";
+import { PromotionBanner } from "@/components/home/PromotionBanner";
+import { StoryBar } from "@/components/home/StoryBar";
+import { ProductCard } from "@/components/product/ProductCard";
+import { CartDrawer } from "@/components/cart/CartDrawer";
+import { StoryViewerModal } from "@/components/stories/StoryViewerModal";
+import { NotificationsDrawer } from "@/components/notifications/NotificationsDrawer";
+import { StoreProfileModal } from "@/components/store/StoreProfileModal";
+import { MOCK_PRODUCTS, MOCK_STORIES, MOCK_STORES, MOCK_NOTIFICATIONS } from "@/data/mock";
+import { Product, Story, CartItem, NotificationItem, Store } from "@/types";
 
-export const Route = createFileRoute("/")({ ssr: false, head: () => ({ meta: [{ title: "تاجر — سوقك بلمسة واحدة" }, { name: "description", content: "سوقك المحلي لبيع وشراء المنتجات." }] }), component: TaRoot });
+export default function IndexPage() {
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [activeStory, setActiveStory] = useState<Story | null>(null);
+  const [activeStore, setActiveStore] = useState<Store | null>(null);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+  const [notifications, setNotifications] = useState<NotificationItem[]>(MOCK_NOTIFICATIONS);
 
-type Tab = "home" | "search" | "sell" | "chat" | "profile";
-type Product = { id: string; name: string; price: number; image_url: string | null; seller_name: string | null; description: string | null };
-type Conversation = { id: string; participant_name: string; last_message: string | null; updated_at: string };
-const navItems: { id: Tab; label: string; icon: typeof Home }[] = [{ id: "home", label: "الرئيسية", icon: Home }, { id: "search", label: "استكشاف", icon: Search }, { id: "sell", label: "بيع", icon: CirclePlus }, { id: "chat", label: "الرسائل", icon: MessageCircle }, { id: "profile", label: "حسابي", icon: UserRound }];
-const money = (value: number) => `${new Intl.NumberFormat("ar-IQ").format(value)} د.ع`;
-function TaMark({ compact = false }: { compact?: boolean }) { return <div className="flex items-center gap-2" aria-label="تاجر"><span className={compact ? "brand-mark brand-mark-sm" : "brand-mark"}>ت</span>{!compact && <strong className="text-xl font-extrabold">تاجر</strong>}</div>; }
-function TopBar({ onSearch }: { onSearch: () => void }) { return <header className="sticky top-0 z-30 border-b border-border/70 bg-background/90 px-4 pb-3 pt-4 backdrop-blur-xl"><div className="mx-auto flex max-w-6xl items-center gap-3"><TaMark /><button className="search-pill" onClick={onSearch}><Search size={17} /><span>ابحث عن منتج أو متجر...</span></button><Button variant="ghost" size="icon" className="relative rounded-full"><Bell /><span className="absolute right-1 top-1 size-2 rounded-full bg-destructive" /></Button></div></header>; }
-function BottomNav({ active, onChange }: { active: Tab; onChange: (tab: Tab) => void }) { return <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 px-2 pb-[max(.55rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur-xl lg:bottom-auto lg:left-0 lg:right-auto lg:top-0 lg:h-screen lg:w-24 lg:border-r lg:border-t-0 lg:px-3 lg:py-6"><div className="mx-auto flex max-w-xl items-center justify-around lg:h-full lg:flex-col lg:justify-start lg:gap-4"><div className="mb-5 hidden lg:block"><TaMark compact /></div>{navItems.map(({ id, label, icon: Icon }) => <Button key={id} variant="ghost" onClick={() => onChange(id)} className={`nav-button ${active === id ? "nav-button-active" : ""} ${id === "sell" ? "nav-sell" : ""}`}><Icon /><span>{label}</span></Button>)}</div></nav>; }
-function SectionTitle({ title, action }: { title: string; action?: string }) { return <div className="mb-3 flex items-center justify-between"><h2 className="text-lg font-extrabold">{title}</h2>{action && <span className="text-xs font-bold text-muted-foreground">{action}</span>}</div>; }
-function ProductCard({ product, onOpen }: { product: Product; onOpen: (p: Product) => void }) { return <button className="product-card" onClick={() => onOpen(product)}><div className="product-image-wrap">{product.image_url ? <img src={product.image_url} alt={product.name} /> : <div className="grid h-full place-items-center text-muted-foreground"><ImageIcon /></div>}<Heart className="heart" /></div><div className="p-3 text-right"><p className="mb-1 text-xs text-muted-foreground">{product.seller_name || "بائع من المجتمع"}</p><h3>{product.name}</h3><strong>{money(product.price)}</strong></div></button>; }
-function EmptyState({ title, detail }: { title: string; detail: string }) { return <div className="empty-state"><Package /><b>{title}</b><span>{detail}</span></div>; }
-function HomeScreen({ products, onProduct, onSell }: { products: Product[]; onProduct: (p: Product) => void; onSell: () => void }) { const categories: Array<[typeof ShoppingBag, string]> = [[ShoppingBag, "منتجات"], [Store, "متاجر"], [Tag, "عروض"], [UsersRound, "مجتمع"], [Grid3X3, "الكل"]]; return <main className="page-shell"><section className="offer-banner"><div className="relative z-10 max-w-[62%]"><span className="mb-2 inline-flex rounded-full bg-background/15 px-3 py-1 text-xs font-bold text-primary-foreground">سوق محلي</span><h1 className="text-2xl font-black leading-tight text-primary-foreground">اعرض منتجك<br />ووصل لمشتريك</h1><Button size="sm" className="mt-3 bg-background text-primary shadow-none hover:bg-background/90" onClick={onSell}>أضف إعلانك</Button></div><img src={baghdad} alt="سوق تاجر" className="absolute inset-y-0 left-0 h-full w-[43%] object-cover object-top opacity-90" /></section><div className="category-strip">{categories.map(([Icon, label]) => <button key={label as string} className="category-item"><span><Icon /></span><b>{label as string}</b></button>)}</div><section className="content-section"><SectionTitle title="المنتجات المنشورة" action={`${products.length} منتج`} />{products.length ? <div className="product-grid">{products.map(p => <ProductCard key={p.id} product={p} onOpen={onProduct} />)}</div> : <EmptyState title="لا توجد منتجات بعد" detail="كن أول من ينشر إعلانًا في تاجر" />}</section></main>; }
-function SearchScreen({ products, onProduct }: { products: Product[]; onProduct: (p: Product) => void }) { const [query, setQuery] = useState(""); const visible = products.filter(p => `${p.name} ${p.seller_name || ""}`.toLowerCase().includes(query.toLowerCase())); return <main className="page-shell"><div className="page-heading"><div><p>اكتشف المنتجات المنشورة</p><h1>البحث</h1></div><Button variant="outline" size="icon"><SlidersHorizontal /></Button></div><label className="input-pill"><Search /><input value={query} onChange={e => setQuery(e.target.value)} placeholder="شنو تدور اليوم؟" autoFocus /></label><SectionTitle title="النتائج" />{visible.length ? <div className="search-results">{visible.map(p => <button key={p.id} className="result-row" onClick={() => onProduct(p)}>{p.image_url ? <img src={p.image_url} alt={p.name} /> : <div className="grid size-16 place-items-center rounded-lg bg-muted"><ImageIcon /></div>}<span><b>{p.name}</b><small>{p.seller_name || "بائع من المجتمع"}</small></span><strong>{money(p.price)}</strong><ChevronLeft /></button>)}</div> : <EmptyState title="لا توجد نتائج" detail="جرّب كلمة بحث أخرى أو انشر منتجك" />}</main>; }
-function SellScreen({ onCreated }: { onCreated: () => void }) { const { user } = useAuth(); const [name, setName] = useState(""); const [price, setPrice] = useState(""); const [description, setDescription] = useState(""); const [imageUrl, setImageUrl] = useState(""); const [busy, setBusy] = useState(false); const [error, setError] = useState(""); const submit = async (e: React.FormEvent) => { e.preventDefault(); if (!user || !name.trim() || !price) return; setBusy(true); setError(""); const { error: insertError } = await supabase.from("products").insert({ seller_id: user.id, name: name.trim(), price: Number(price), description: description.trim() || null, image_url: imageUrl.trim() || null }); if (insertError) setError(insertError.message); else { setName(""); setPrice(""); setDescription(""); setImageUrl(""); onCreated(); } setBusy(false); }; return <main className="page-shell"><div className="page-heading"><div><p>خلّي بضاعتك توصل</p><h1>إضافة إعلان</h1></div><Package /></div><form onSubmit={submit} className="form-stack"><label><span>عنوان الإعلان</span><input required value={name} onChange={e => setName(e.target.value)} placeholder="مثال: حذاء رياضي جديد" /></label><label><span>السعر بالدينار العراقي</span><input required type="number" min="0" value={price} onChange={e => setPrice(e.target.value)} placeholder="0" /></label><label><span>رابط صورة المنتج (اختياري)</span><input type="url" value={imageUrl} onChange={e => setImageUrl(e.target.value)} placeholder="https://..." dir="ltr" /></label><label><span>الوصف</span><textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="اكتب تفاصيل المنتج وحالته..." rows={4} /></label>{error && <p className="rounded-lg bg-destructive/10 p-3 text-xs text-destructive">تعذر نشر الإعلان: {error}</p>}<Button type="submit" size="lg" disabled={busy} className="mt-2 h-12 w-full rounded-xl text-base">{busy ? <Loader2 className="animate-spin" /> : <Sparkles />}نشر الإعلان</Button></form></main>; }
-function ChatScreen() { const { user } = useAuth(); const [conversations, setConversations] = useState<Conversation[]>([]); const [open, setOpen] = useState<Conversation | null>(null); const [text, setText] = useState(""); const load = useCallback(async () => { if (!user) return; const { data } = await supabase.from("conversations").select("id, participant_name, last_message, updated_at").eq("user_id", user.id).order("updated_at", { ascending: false }); setConversations((data || []) as Conversation[]); }, [user]); useEffect(() => { void load(); }, [load]); if (open) return <main className="chat-page"><div className="chat-header"><Button variant="ghost" size="icon" onClick={() => setOpen(null)}><ChevronRight /></Button><img src={portrait} alt={open.participant_name} /><span><b>{open.participant_name}</b><small>محادثة</small></span><Button variant="ghost" size="icon"><MoreHorizontal /></Button></div><div className="messages"><span className="date-chip">المحادثة</span><EmptyState title="لا توجد رسائل بعد" detail="ابدأ المحادثة من صفحة المنتج" /></div><form className="composer" onSubmit={async e => { e.preventDefault(); if (!text.trim() || !user) return; await supabase.from("messages").insert({ conversation_id: open.id, sender_id: user.id, body: text.trim() }); setText(""); }}><Button type="button" variant="ghost" size="icon"><CirclePlus /></Button><input value={text} onChange={e => setText(e.target.value)} placeholder="اكتب رسالة..." /><Button type="button" variant="ghost" size="icon"><Mic /></Button><Button type="submit" size="icon" className="rounded-full"><Send /></Button></form></main>; return <main className="page-shell"><div className="page-heading"><div><p>محادثاتك الحقيقية</p><h1>الرسائل</h1></div><MessageCircle /></div>{conversations.length ? conversations.map(c => <button key={c.id} className="conversation" onClick={() => setOpen(c)}><img src={portrait} alt={c.participant_name} /><span><b>{c.participant_name}</b><small>{c.last_message || "لا توجد رسائل بعد"}</small></span><time>{new Date(c.updated_at).toLocaleDateString("ar-IQ")}</time></button>) : <EmptyState title="لا توجد محادثات" detail="ستظهر هنا رسائلك مع البائعين والمشترين" />}</main>; }
-function ProfileScreen() { const { user, profile, signOut } = useAuth(); const name = profile?.display_name || user?.email?.split("@")[0] || "مستخدم تاجر"; return <main className="profile-page"><div className="profile-cover"><img src={baghdad} alt="ملفك الشخصي" /><div className="profile-actions"><Button variant="secondary" size="icon"><Share2 /></Button><Button variant="secondary" size="icon" onClick={() => void signOut()}><LogOut /></Button></div></div><section className="profile-info"><img src={profile?.avatar_url || portrait} alt={name} className="avatar-xl" /><h1>{name} <span>✓</span></h1><p>@{profile?.username || "tajer"}</p><small><MapPin /> {profile?.city || "لم تحدد المدينة"}</small><div className="stats"><div><b>—</b><span>المنشورات</span></div><div><b>—</b><span>المتابعون</span></div><div><b>—</b><span>يتابع</span></div></div><div className="profile-buttons"><Button variant="outline">تعديل الملف</Button><Button variant="ghost" onClick={() => void signOut()}><LogOut />تسجيل الخروج</Button></div></section><div className="profile-tabs"><button className="active"><Grid3X3 />المنشورات</button><button><ShoppingBag />المتجر</button><button><Heart />المفضلة</button></div><EmptyState title="لا توجد منشورات" detail="ستظهر منتجاتك هنا بعد نشر أول إعلان" /></main>; }
-function ProductSheet({ product, onClose }: { product: Product; onClose: () => void }) { return <div className="modal-backdrop" onClick={onClose}><div className="product-sheet" onClick={e => e.stopPropagation()}><div className="sheet-handle" /><Button variant="secondary" size="icon" className="sheet-close" onClick={onClose}><X /></Button>{product.image_url ? <img src={product.image_url} alt={product.name} className="sheet-image" /> : <div className="grid h-56 place-items-center bg-muted"><ImageIcon /></div>}<div className="sheet-content"><small>{product.seller_name || "بائع من المجتمع"}</small><h2>{product.name}</h2><h3>{money(product.price)}</h3><p>{product.description || "لم يضف البائع وصفًا لهذا المنتج بعد."}</p><div className="delivery"><Clock3 /><span><b>تواصل مباشر</b><small>اسأل البائع عن التوصيل والتفاصيل</small></span></div><Button size="lg" className="h-12 w-full rounded-xl"><MessageCircle />تواصل مع البائع</Button></div></div></div>; }
-function TaRoot() { return <AuthProvider><TaGate /></AuthProvider>; }
-function TaGate() { const { user, loading } = useAuth(); if (loading) return <div className="flex min-h-screen items-center justify-center"><Loader2 className="animate-spin" /></div>; return user ? <TaApp /> : <AuthScreen />; }
-function TaApp() { const [tab, setTab] = useState<Tab>("home"); const [products, setProducts] = useState<Product[]>([]); const [selected, setSelected] = useState<Product | null>(null); const { user } = useAuth(); const loadProducts = useCallback(async () => { const { data } = await supabase.from("products").select("id,name,price,image_url,description,seller_id,profiles(display_name)").eq("status", "active").order("created_at", { ascending: false }); setProducts((data || []).map((p: any) => ({ id: p.id, name: p.name, price: p.price, image_url: p.image_url, description: p.description, seller_name: p.profiles?.display_name || null }))); }, []); useEffect(() => { void loadProducts(); }, [loadProducts, user]); return <div dir="rtl" className="min-h-screen bg-background font-sans text-foreground lg:pr-24">{tab !== "chat" && <TopBar onSearch={() => setTab("search")} />}{tab === "home" && <HomeScreen products={products} onProduct={setSelected} onSell={() => setTab("sell")} />}{tab === "search" && <SearchScreen products={products} onProduct={setSelected} />}{tab === "sell" && <SellScreen onCreated={() => { void loadProducts(); setTab("home"); }} />}{tab === "chat" && <ChatScreen />}{tab === "profile" && <ProfileScreen />}<BottomNav active={tab} onChange={setTab} />{selected && <ProductSheet product={selected} onClose={() => setSelected(null)} />}</div>; }
+  const handleAddToCart = (product: Product) => {
+    setCartItems((prev) => {
+      const existing = prev.find((item) => item.id === product.id);
+      if (existing) {
+        return prev.map((item) => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item);
+      }
+      return [...prev, { ...product, quantity: 1 }];
+    });
+  };
+
+  const handleUpdateQuantity = (id: string, delta: number) => {
+    setCartItems((prev) =>
+      prev.map((item) => {
+        if (item.id === id) {
+          const newQty = item.quantity + delta;
+          return newQty > 0 ? { ...item, quantity: newQty } : null;
+        }
+        return item;
+      }).filter(Boolean) as CartItem[]
+    );
+  };
+
+  const filteredProducts = selectedCategory === "all"
+    ? MOCK_PRODUCTS
+    : MOCK_PRODUCTS.filter((p) => p.category === selectedCategory);
+
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white">
+      <Header
+        cartCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
+        unreadNotificationsCount={notifications.filter((n) => !n.read).length}
+        onOpenCart={() => setIsCartOpen(true)}
+        onOpenNotifications={() => setIsNotificationsOpen(true)}
+        onOpenMenu={() => setIsMenuOpen(true)}
+      />
+
+      <main className="mx-auto max-w-5xl px-4 py-4 space-y-4">
+        <StoryBar stories={MOCK_STORIES} onSelectStory={setActiveStory} />
+        <CategoryBar selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
+        <PromotionBanner />
+
+        <section className="space-y-3">
+          <h2 className="text-base font-black text-right">أحدث المنتجات</h2>
+          <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
+            {filteredProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                onOpen={() => {
+                  const store = MOCK_STORES.find(s => s.name === product.seller_name);
+                  if (store) setActiveStore(store);
+                }}
+                onAddToCart={handleAddToCart}
+              />
+            ))}
+          </div>
+        </section>
+      </main>
+
+      <MobileMenuDrawer isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
+      <CartDrawer isOpen={isCartOpen} items={cartItems} onClose={() => setIsCartOpen(false)} onUpdateQuantity={handleUpdateQuantity} />
+      {isNotificationsOpen && (
+        <NotificationsDrawer
+          notifications={notifications}
+          onClose={() => setIsNotificationsOpen(false)}
+          onMarkAllRead={() => setNotifications((prev) => prev.map((n) => ({ ...n, read: true })))}
+        />
+      )}
+      {activeStory && (
+        <StoryViewerModal
+          story={activeStory}
+          onClose={() => setActiveStory(null)}
+          onOpenStore={(storeId) => {
+            const store = MOCK_STORES.find((s) => s.id === storeId);
+            if (store) setActiveStore(store);
+          }}
+        />
+      )}
+      {activeStore && (
+        <StoreProfileModal
+          store={activeStore}
+          products={MOCK_PRODUCTS}
+          onClose={() => setActiveStore(null)}
+          onOpenProduct={() => {}}
+          onAddToCart={handleAddToCart}
+        />
+      )}
+    </div>
+  );
+}
