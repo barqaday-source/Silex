@@ -2,9 +2,7 @@ import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { Header } from "@/components/layout/Header";
 import { MobileMenuDrawer } from "@/components/layout/MobileMenuDrawer";
-import { CategoryBar } from "@/components/home/CategoryBar";
-import { PromotionBanner } from "@/components/home/PromotionBanner";
-import { StoryBar } from "@/components/home/StoryBar";
+import { HomeScreen } from "@/components/home/HomeScreen";
 import { ProductCard } from "@/components/product/ProductCard";
 import { CartDrawer } from "@/components/cart/CartDrawer";
 import { StoryViewerModal } from "@/components/stories/StoryViewerModal";
@@ -58,16 +56,8 @@ export default function IndexPage() {
     );
   };
 
-  const filteredProducts = MOCK_PRODUCTS.filter((p) => {
-    const matchesCategory = selectedCategory === "all" || p.category === selectedCategory;
-    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          p.seller_name.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
-
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white pb-16">
-      {/* Global Clean Shell Header */}
       <Header
         cartCount={cartItems.reduce((acc, item) => acc + item.quantity, 0)}
         unreadNotificationsCount={notifications.filter((n) => !n.read).length}
@@ -79,30 +69,21 @@ export default function IndexPage() {
       />
 
       <main className="mx-auto max-w-5xl px-4 py-4 space-y-4">
-        {/* TABS VIEW ROUTING */}
         {activeTab === "home" && (
-          <>
-            <StoryBar stories={MOCK_STORIES} onSelectStory={setActiveStory} />
-            <CategoryBar selectedCategory={selectedCategory} onSelectCategory={setSelectedCategory} />
-            <PromotionBanner />
-
-            <section className="space-y-3">
-              <h2 className="text-base font-black text-right">أحدث المنتجات</h2>
-              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
-                {filteredProducts.map((product) => (
-                  <ProductCard
-                    key={product.id}
-                    product={product}
-                    onOpen={() => {
-                      const store = MOCK_STORES.find(s => s.name === product.seller_name);
-                      if (store) setActiveStore(store);
-                    }}
-                    onAddToCart={handleAddToCart}
-                  />
-                ))}
-              </div>
-            </section>
-          </>
+          <HomeScreen
+            products={MOCK_PRODUCTS}
+            stores={MOCK_STORES}
+            stories={MOCK_STORIES}
+            selectedCategory={selectedCategory}
+            onSelectCategory={setSelectedCategory}
+            onSelectStory={setActiveStory}
+            onSelectProduct={(p) => {
+              const store = MOCK_STORES.find((s) => s.name === p.seller_name);
+              if (store) setActiveStore(store);
+            }}
+            onSelectStore={setActiveStore}
+            onAddToCart={handleAddToCart}
+          />
         )}
 
         {activeTab === "stores" && (
@@ -137,7 +118,7 @@ export default function IndexPage() {
                   key={product.id}
                   product={product}
                   onOpen={() => {
-                    const store = MOCK_STORES.find(s => s.name === product.seller_name);
+                    const store = MOCK_STORES.find((s) => s.name === product.seller_name);
                     if (store) setActiveStore(store);
                   }}
                   onAddToCart={handleAddToCart}
@@ -157,7 +138,6 @@ export default function IndexPage() {
         {activeTab === "profile" && <ProfileScreen />}
       </main>
 
-      {/* GLOBAL BOTTOM NAVIGATION */}
       <BottomNavigation
         activeTab={activeTab}
         unreadChatCount={MOCK_CONVERSATIONS.reduce((acc, c) => acc + c.unreadCount, 0)}
@@ -165,13 +145,12 @@ export default function IndexPage() {
         onTabChange={setActiveTab}
       />
 
-      {/* DRAWERS & MODALS */}
       <MobileMenuDrawer
         isOpen={isMenuOpen}
         onClose={() => setIsMenuOpen(false)}
         onNavigateTab={(tab) => setActiveTab(tab)}
       />
-      
+
       <CartDrawer isOpen={isCartOpen} items={cartItems} onClose={() => setIsCartOpen(false)} onUpdateQuantity={handleUpdateQuantity} />
 
       {isNotificationsOpen && (
