@@ -1,4 +1,4 @@
-import { CheckCircle2, Copy, ShoppingBag, X } from "lucide-react";
+import { CheckCircle2, ShoppingBag, X } from "lucide-react";
 import { useState } from "react";
 import { CartItem } from "@/types";
 
@@ -8,18 +8,36 @@ export function CartDrawer({
   onClose,
   onUpdateQuantity,
   onContinueShopping,
+  onCheckout,
 }: {
   isOpen: boolean;
   items: CartItem[];
   onClose: () => void;
   onUpdateQuantity: (id: string, delta: number) => void;
   onContinueShopping?: () => void;
+  onCheckout?: (items: CartItem[]) => Promise<void>;
 }) {
-  if (!isOpen) return null;
-  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const [cashAmount, setCashAmount] = useState("");
   const [orderPlaced, setOrderPlaced] = useState(false);
+  const [processing, setProcessing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  if (!isOpen) return null;
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const change = Number(cashAmount) >= total ? Number(cashAmount) - total : 0;
+
+  const handleCheckout = async () => {
+    if (!onCheckout || !cashAmount || processing) return;
+    setProcessing(true);
+    setError(null);
+    try {
+      await onCheckout(items);
+      setOrderPlaced(true);
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "تعذر تسجيل الطلب");
+    } finally {
+      setProcessing(false);
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" onClick={onClose}>
@@ -70,7 +88,8 @@ export function CartDrawer({
               </label>
               {cashAmount && <p className="mt-2 text-[11px] font-black text-emerald-700 dark:text-emerald-300">سيحضر المندوب باقي {change.toLocaleString("ar-IQ")} د.ع</p>}
             </div>
-            {orderPlaced ? <div className="flex items-center justify-center gap-2 rounded-2xl bg-emerald-500 py-3 text-xs font-black text-white"><CheckCircle2 size={16} /> تم تسجيل طلبك داخل صفصاف</div> : <button type="button" onClick={() => setOrderPlaced(true)} className="w-full rounded-2xl bg-emerald-500 py-3 text-xs font-black text-white hover:bg-emerald-600">تأكيد الطلب نقداً عند الاستلام</button>}
+            {error && <p className="rounded-xl bg-rose-50 p-2 text-center text-[11px] font-bold text-rose-600 dark:bg-rose-950/30 dark:text-rose-300">{error}</p>}
+            {orderPlaced ? <div className="flex items-center justify-center gap-2 rounded-2xl bg-emerald-500 py-3 text-xs font-black text-white"><CheckCircle2 size={16} /> تم تسجيل طلبك داخل صفصاف</div> : <button type="button" disabled={!cashAmount || processing || !onCheckout} onClick={() => void handleCheckout()} className="w-full rounded-2xl bg-emerald-500 py-3 text-xs font-black text-white hover:bg-emerald-600 disabled:cursor-not-allowed disabled:opacity-50">{processing ? "جاري تسجيل الطلب..." : "تأكيد الطلب نقداً عند الاستلام"}</button>}
           </div>
         )}
       </div>

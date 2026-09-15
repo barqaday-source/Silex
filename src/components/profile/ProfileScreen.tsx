@@ -35,11 +35,15 @@ export function ProfileScreen({
   onEnterSellerMode,
   onExitSellerMode,
   onAddToCart,
+  onOpenSettings,
+  onLogout,
 }: {
   accountMode?: "personal" | "seller";
   onEnterSellerMode?: () => void;
   onExitSellerMode?: () => void;
   onAddToCart?: (product: Product) => void;
+  onOpenSettings?: () => void;
+  onLogout?: () => void;
 }) {
   const [showQrModal, setShowQrModal] = useState(false);
 
@@ -262,7 +266,7 @@ export function ProfileScreen({
           <SellerAnalytics />
           <div className="xl:col-span-2"><BulkOperations /></div>
           <InventoryManager />
-          <MerchantAiAssistant onAddToCart={onAddToCart} />
+          <MerchantAiAssistant {...(onAddToCart ? { onAddToCart } : {})} />
 
           <div className="grid grid-cols-2 gap-2">
             <button className="flex flex-col items-center justify-center rounded-3xl bg-emerald-500 p-4 text-white shadow-md hover:bg-emerald-600 transition space-y-2">
@@ -298,7 +302,7 @@ export function ProfileScreen({
 
       {/* SYSTEM SETTINGS & SECURITY */}
       <div className="rounded-3xl border border-slate-100 bg-white p-2 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-1">
-        <button className="flex w-full items-center justify-between rounded-2xl p-3 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800">
+        <button type="button" onClick={onOpenSettings} className="flex w-full items-center justify-between rounded-2xl p-3 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800">
           <ChevronLeft size={16} className="text-slate-400" />
           <div className="flex items-center gap-3">
             <span>تنبيهات الإشعارات</span>
@@ -315,7 +319,7 @@ export function ProfileScreen({
         </button>
       </div>
 
-      <button className="flex w-full items-center justify-center gap-2 rounded-2xl border border-rose-200 bg-rose-50 py-3.5 text-xs font-black text-rose-600 transition hover:bg-rose-100 dark:border-rose-900/50 dark:bg-rose-950/30">
+      <button type="button" onClick={onLogout} className="flex w-full items-center justify-center gap-2 rounded-2xl border border-rose-200 bg-rose-50 py-3.5 text-xs font-black text-rose-600 transition hover:bg-rose-100 dark:border-rose-900/50 dark:bg-rose-950/30">
         <LogOut size={16} /> تسجيل الخروج من الحساب
       </button>
 

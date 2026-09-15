@@ -16,6 +16,7 @@ export type Story = {
   storeAvatar: string;
   mediaUrl: string;
   createdAt: string;
+  caption?: string;
   productId?: string;
 };
 
@@ -52,6 +53,11 @@ export type ChatMessage = {
   sender: 'user' | 'store';
   text?: string;
   time: string;
+  isPinned?: boolean;
+  replyTo?: {
+    id: string;
+    text: string;
+  };
   type?: 'text' | 'product' | 'order' | 'offer';
   productDetails?: {
     id: string;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Ban, Check, Flag, MoreVertical, Package, Plus, Send, ShieldAlert, Store, Tag, X } from "lucide-react";
+import { ArrowRight, Ban, Check, CheckCheck, CornerUpRight, Flag, MoreVertical, Package, Pin, Plus, Send, ShieldAlert, Store, Tag, Trash2, X } from "lucide-react";
 import { Conversation, ChatMessage, Product } from "@/types";
 
 export function ChatRoom({
@@ -21,6 +21,8 @@ export function ChatRoom({
   const [blocked, setBlocked] = useState(false);
   const [reportReason, setReportReason] = useState("احتيال");
   const [offerAmount, setOfferAmount] = useState("");
+  const [replyingTo, setReplyingTo] = useState<ChatMessage | null>(null);
+  const [notice, setNotice] = useState<string | null>(null);
   const relatedProduct = products.find((product) => product.seller_id === conversation.storeId) ?? products[0];
 
   const quickReplies = [
@@ -31,17 +33,35 @@ export function ChatRoom({
 
   const handleSend = (textToSend?: string) => {
     const text = textToSend || input;
-    if (!text.trim()) return;
+    if (!text.trim() || blocked) return;
 
     const newMsg: ChatMessage = {
       id: Date.now().toString(),
       sender: "user",
       text,
       time: "الآن",
+      replyTo: replyingTo ? { id: replyingTo.id, text: replyingTo.text ?? "رسالة مرفقة" } : undefined,
     };
 
     setMessages((prev) => [...prev, newMsg]);
     if (!textToSend) setInput("");
+    setReplyingTo(null);
+  };
+
+  const showNotice = (message: string) => {
+    setNotice(message);
+    window.setTimeout(() => setNotice(null), 2500);
+  };
+
+  const togglePin = (message: ChatMessage) => {
+    setMessages((current) => current.map((item) => item.id === message.id ? { ...item, isPinned: !item.isPinned } : item));
+    showNotice(message.isPinned ? "تم إلغاء تثبيت الرسالة" : "تم تثبيت الرسالة");
+  };
+
+  const deleteMessage = (messageId: string) => {
+    setMessages((current) => current.filter((item) => item.id !== messageId));
+    if (replyingTo?.id === messageId) setReplyingTo(null);
+    showNotice("تم حذف الرسالة");
   };
 
   const sendProductCard = () => {
@@ -69,33 +89,36 @@ export function ChatRoom({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col bg-slate-50 dark:bg-slate-950">
+    <div dir="rtl" className="fixed inset-0 z-50 flex flex-col bg-background">
+      {notice && <div className="fixed left-1/2 top-5 z-[70] flex -translate-x-1/2 items-center gap-2 rounded-xl border border-border bg-card px-4 py-2 text-xs font-bold text-foreground shadow-xl"><Check size={14} className="text-primary" />{notice}</div>}
       {/* Top Header */}
-      <header className="flex items-center justify-between border-b border-slate-200 bg-white px-4 py-3 dark:border-slate-800 dark:bg-slate-900">
+      <header className="flex items-center justify-between border-b border-border bg-card px-4 py-3">
         <div className="flex items-center gap-3">
-          <button onClick={onBack} className="rounded-xl p-1.5 text-slate-600 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800">
+          <button type="button" onClick={onBack} className="rounded-xl p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground" aria-label="العودة">
             <ArrowRight size={20} />
           </button>
-          <div className="flex items-center gap-2.5">
-            <img src={conversation.storeAvatar} alt={conversation.storeName} className="size-10 rounded-full object-cover" />
+          <button type="button" onClick={() => onOpenStore?.(conversation.storeId)} className="flex items-center gap-2.5 text-right">
+            <img src={conversation.storeAvatar} alt={conversation.storeName} className="size-10 rounded-full border-2 border-primary/40 object-cover" />
             <div className="text-right">
-              <h3 className="text-xs font-black text-slate-900 dark:text-white">{conversation.storeName}</h3>
-              <span className="text-[10px] text-emerald-500 font-bold">
+              <h3 className="text-xs font-black text-foreground">{conversation.storeName}</h3>
+              <span className="text-[10px] font-bold text-primary">
                 {conversation.isOnline ? "● متصل الآن" : "متصل مؤخراً"}
               </span>
             </div>
-          </div>
+          </button>
         </div>
 
         <div className="relative flex items-center gap-2">
-          {onOpenStore && <button onClick={() => onOpenStore(conversation.storeId)} className="flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1.5 text-[11px] font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-600 dark:bg-slate-800 dark:text-slate-200"><Store size={14} /> المتجر</button>}
-          <button type="button" onClick={() => setShowSafetyMenu((current) => !current)} className="grid size-9 place-items-center rounded-xl bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-200" aria-label="خيارات المحادثة"><MoreVertical size={18} /></button>
-          {showSafetyMenu && <div className="absolute left-0 top-11 z-20 w-44 rounded-2xl border border-slate-200 bg-white p-1.5 text-right shadow-xl dark:border-slate-700 dark:bg-slate-900"><button type="button" onClick={() => { setBlocked(true); setShowSafetyMenu(false); }} className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50"><Ban size={14} /> حظر المتجر</button><button type="button" onClick={() => { setShowReport(true); setShowSafetyMenu(false); }} className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800"><Flag size={14} /> إبلاغ عن انتهاك</button></div>}
+          {onOpenStore && <button type="button" onClick={() => onOpenStore(conversation.storeId)} className="flex items-center gap-1.5 rounded-xl bg-muted px-3 py-1.5 text-[11px] font-bold text-foreground hover:bg-accent hover:text-accent-foreground"><Store size={14} /> المتجر</button>}
+          <button type="button" onClick={() => setShowSafetyMenu((current) => !current)} className="grid size-9 place-items-center rounded-xl bg-muted text-muted-foreground hover:text-foreground" aria-label="خيارات المحادثة"><MoreVertical size={18} /></button>
+          {showSafetyMenu && <div className="absolute left-0 top-11 z-20 w-44 rounded-2xl border border-border bg-card p-1.5 text-right shadow-xl"><button type="button" onClick={() => { setBlocked(true); setShowSafetyMenu(false); showNotice("تم حظر المتجر"); }} className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold text-destructive hover:bg-destructive/10"><Ban size={14} /> حظر المتجر</button><button type="button" onClick={() => { setShowReport(true); setShowSafetyMenu(false); }} className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold text-foreground hover:bg-muted"><Flag size={14} /> إبلاغ عن انتهاك</button></div>}
         </div>
       </header>
 
+      {messages.some((message) => message.isPinned) && <div className="flex items-center gap-2 border-b border-border bg-secondary/50 px-4 py-2 text-[11px] text-foreground"><Pin size={14} className="shrink-0 text-primary" /><span className="truncate">رسالة مثبتة: {messages.find((message) => message.isPinned)?.text}</span></div>}
+
       {/* Messages Scroll Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3">
+      <div className="flex-1 space-y-3 overflow-y-auto bg-muted/40 p-4">
         {blocked && <div className="mx-auto max-w-sm rounded-2xl border border-rose-200 bg-rose-50 p-4 text-center text-xs font-bold text-rose-700"><Ban size={18} className="mx-auto mb-2" />تم حظر هذا المتجر ولن تصلك رسائل جديدة.</div>}
         {messages.map((msg) => {
           const isUser = msg.sender === "user";
@@ -131,15 +154,23 @@ export function ChatRoom({
 
               {/* Text Bubble */}
               {msg.text && (
-                <div
-                  className={`max-w-[80%] rounded-2xl px-4 py-2.5 text-xs font-bold shadow-sm ${
+                <div className="group relative max-w-[80%]">
+                  {msg.replyTo && <div className="mb-1 flex items-center gap-1 rounded-t-xl border-r-2 border-primary bg-secondary px-3 py-1.5 text-[10px] text-muted-foreground"><CornerUpRight size={12} className="text-primary" /><span className="truncate">{msg.replyTo.text}</span></div>}
+                  <div
+                    className={`rounded-2xl px-4 py-2.5 text-xs font-bold shadow-sm ${
                     isUser
-                      ? "bg-emerald-500 text-white rounded-br-none"
-                      : "bg-white text-slate-800 dark:bg-slate-800 dark:text-slate-100 rounded-bl-none"
+                      ? "rounded-br-none bg-primary text-primary-foreground"
+                      : "rounded-bl-none bg-card text-foreground"
                   }`}
-                >
-                  {msg.text}
-                  <span className="mt-1 block text-[9px] opacity-70 text-left">{msg.time}</span>
+                  >
+                    {msg.text}
+                    <span className="mt-1 flex items-center justify-end gap-1 text-[9px] opacity-70"><span>{msg.time}</span>{isUser && <CheckCheck size={12} />}</span>
+                  </div>
+                  <div className={`absolute -top-3 ${isUser ? "left-2" : "right-2"} hidden items-center rounded-lg border border-border bg-card shadow-lg group-hover:flex`}>
+                    <button type="button" onClick={() => setReplyingTo(msg)} className="p-1.5 text-muted-foreground hover:text-primary" title="رد"><CornerUpRight size={13} /></button>
+                    <button type="button" onClick={() => togglePin(msg)} className="p-1.5 text-muted-foreground hover:text-primary" title="تثبيت"><Pin size={13} /></button>
+                    <button type="button" onClick={() => deleteMessage(msg.id)} className="p-1.5 text-muted-foreground hover:text-destructive" title="حذف"><Trash2 size={13} /></button>
+                  </div>
                 </div>
               )}
             </div>
@@ -147,13 +178,15 @@ export function ChatRoom({
         })}
       </div>
 
+      {replyingTo && <div className="flex items-center justify-between border-t border-border bg-card px-4 py-2 text-xs"><div className="flex min-w-0 items-center gap-2 text-muted-foreground"><CornerUpRight className="size-4 shrink-0 text-primary" /><span className="truncate">الرد على: {replyingTo.text}</span></div><button type="button" onClick={() => setReplyingTo(null)} className="text-muted-foreground hover:text-foreground" aria-label="إلغاء الرد"><X className="size-4" /></button></div>}
+
       {/* Quick Replies Bar */}
-      <div className="flex gap-1.5 overflow-x-auto px-4 py-2 bg-slate-100 dark:bg-slate-900/50 no-scrollbar">
+      <div className="flex gap-1.5 overflow-x-auto bg-muted px-4 py-2 no-scrollbar">
         {quickReplies.map((qr, idx) => (
           <button
             key={idx}
             onClick={() => handleSend(qr)}
-            className="shrink-0 rounded-full bg-white px-3 py-1 text-[11px] font-bold text-slate-700 shadow-sm transition hover:bg-emerald-50 hover:text-emerald-600 dark:bg-slate-800 dark:text-slate-200"
+            className="shrink-0 rounded-full bg-card px-3 py-1 text-[11px] font-bold text-foreground shadow-sm transition hover:bg-accent hover:text-accent-foreground"
           >
             {qr}
           </button>
@@ -172,10 +205,10 @@ export function ChatRoom({
       {showTools && <div className="border-t bg-amber-50 p-3 text-right dark:border-slate-800 dark:bg-amber-950/20"><label className="block text-[10px] font-bold text-amber-900 dark:text-amber-200">قيمة العرض الخاص<input value={offerAmount} onChange={(event) => setOfferAmount(event.target.value)} type="number" min="1" placeholder="مثال: 85000" className="mt-1 w-full rounded-xl border border-amber-200 bg-white p-2 text-xs outline-none dark:border-amber-900 dark:bg-slate-900" /></label></div>}
 
       {/* Input Bar */}
-      <div className="flex items-center gap-2 border-t border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-900">
+      <div className="flex items-center gap-2 border-t border-border bg-card p-3">
         <button
           onClick={() => setShowTools(!showTools)}
-          className="grid size-10 place-items-center rounded-xl bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300"
+          className="grid size-10 place-items-center rounded-xl bg-muted text-muted-foreground"
         >
           <Plus size={20} />
         </button>
@@ -186,12 +219,15 @@ export function ChatRoom({
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleSend()}
           placeholder="اكتب رسالتك للبائع..."
-          className="flex-1 rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-xs outline-none focus:border-emerald-500 dark:border-slate-800 dark:bg-slate-800 dark:text-white"
+          disabled={blocked}
+          className="flex-1 rounded-2xl border border-input bg-muted px-4 py-2.5 text-xs text-foreground outline-none placeholder:text-muted-foreground focus:border-primary focus:ring-1 focus:ring-primary disabled:cursor-not-allowed disabled:opacity-50"
         />
 
         <button
           onClick={() => handleSend()}
-          className="grid size-10 place-items-center rounded-xl bg-emerald-500 text-white shadow-md shadow-emerald-500/20 hover:bg-emerald-600"
+          type="button"
+          disabled={blocked}
+          className="grid size-10 place-items-center rounded-xl bg-primary text-primary-foreground shadow-md shadow-primary/20 hover:bg-primary/90 disabled:opacity-50"
         >
           <Send size={18} />
         </button>

@@ -60,7 +60,7 @@ const initialPermissions: Record<PermissionKey, boolean> = {
   faq: true,
 };
 
-export function MerchantAiAssistant({ onAddToCart }: { onAddToCart?: (product: Product) => void }) {
+export function MerchantAiAssistant({ onAddToCart }: { onAddToCart?: ((product: Product) => void) | undefined }) {
   const [isEnabled, setIsEnabled] = useState(true);
   const [availabilityMode, setAvailabilityMode] = useState<AvailabilityMode>("always");
   const [isSuggestionsEnabled, setIsSuggestionsEnabled] = useState(true);
