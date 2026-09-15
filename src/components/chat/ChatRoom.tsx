@@ -49,7 +49,7 @@ export function ChatRoom({
     setMessages((current) => [...current, {
       id: Date.now().toString(),
       sender: "user",
-      text: "أرغب بالاستفسار عن هذا المنتج داخل سيلكس.",
+      text: "أرغب بالاستفسار عن هذا المنتج داخل صفصاف.",
       time: "الآن",
       type: "product",
       productDetails: { id: relatedProduct.id, name: relatedProduct.name, price: relatedProduct.price, image: relatedProduct.image_url },
@@ -62,7 +62,7 @@ export function ChatRoom({
     if (!Number.isFinite(amount) || amount <= 0) return;
     setMessages((current) => [...current, {
       id: Date.now().toString(), sender: "user", time: "الآن", type: "offer",
-      text: "عرض خاص للطلب داخل سيلكس.", offerDetails: { amount, expiresIn: "24 ساعة" },
+      text: "عرض خاص للطلب داخل صفصاف.", offerDetails: { amount, expiresIn: "24 ساعة" },
     }]);
     setOfferAmount("");
     setShowTools(false);
@@ -197,7 +197,7 @@ export function ChatRoom({
         </button>
       </div>
 
-      {showReport && <div className="fixed inset-0 z-[60] grid place-items-center bg-black/60 p-4" onClick={() => setShowReport(false)}><div className="w-full max-w-sm rounded-3xl bg-white p-5 text-right shadow-2xl dark:bg-slate-900" onClick={(event) => event.stopPropagation()}><div className="flex items-center justify-between"><button type="button" onClick={() => setShowReport(false)} className="grid size-8 place-items-center rounded-xl bg-slate-100 dark:bg-slate-800"><X size={15} /></button><h3 className="text-sm font-black">إبلاغ عن انتهاك</h3></div><p className="mt-3 text-xs text-slate-500">اختر سبب البلاغ ليبقى التواصل آمناً داخل سيلكس.</p><div className="mt-3 space-y-2">{["احتيال", "تأخير متكرر", "أسلوب غير لائق"].map((reason) => <button type="button" key={reason} onClick={() => setReportReason(reason)} className={`flex w-full items-center justify-between rounded-xl border p-3 text-xs font-bold ${reportReason === reason ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-slate-200 dark:border-slate-700"}`}>{reason}{reportReason === reason && <Check size={14} />}</button>)}</div><button type="button" onClick={() => setShowReport(false)} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-rose-500 py-2.5 text-xs font-black text-white"><ShieldAlert size={15} /> إرسال البلاغ</button></div></div>}
+      {showReport && <div className="fixed inset-0 z-[60] grid place-items-center bg-black/60 p-4" onClick={() => setShowReport(false)}><div className="w-full max-w-sm rounded-3xl bg-white p-5 text-right shadow-2xl dark:bg-slate-900" onClick={(event) => event.stopPropagation()}><div className="flex items-center justify-between"><button type="button" onClick={() => setShowReport(false)} className="grid size-8 place-items-center rounded-xl bg-slate-100 dark:bg-slate-800"><X size={15} /></button><h3 className="text-sm font-black">إبلاغ عن انتهاك</h3></div><p className="mt-3 text-xs text-slate-500">اختر سبب البلاغ ليبقى التواصل آمناً داخل صفصاف.</p><div className="mt-3 space-y-2">{["احتيال", "تأخير متكرر", "أسلوب غير لائق"].map((reason) => <button type="button" key={reason} onClick={() => setReportReason(reason)} className={`flex w-full items-center justify-between rounded-xl border p-3 text-xs font-bold ${reportReason === reason ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-slate-200 dark:border-slate-700"}`}>{reason}{reportReason === reason && <Check size={14} />}</button>)}</div><button type="button" onClick={() => setShowReport(false)} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-rose-500 py-2.5 text-xs font-black text-white"><ShieldAlert size={15} /> إرسال البلاغ</button></div></div>}
     </div>
   );
 }

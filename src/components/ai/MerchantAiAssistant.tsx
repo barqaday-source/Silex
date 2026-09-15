@@ -21,7 +21,10 @@ import { MOCK_PRODUCTS } from "@/data/mock";
 import { answerFromStoreData, buildStoreRagData } from "@/services/ai/storeAssistant";
 import type { Product } from "@/types";
 
+export { SALIX_AI_SYSTEM_PROMPT } from "@/services/ai/storeAssistant";
+
 type AssistantMode = "friendly" | "formal" | "concise" | "store";
+type AvailabilityMode = "always" | "after_hours" | "off";
 type KnowledgeTab = "knowledge" | "permissions" | "faq";
 type PermissionKey =
   | "products"
@@ -59,8 +62,11 @@ const initialPermissions: Record<PermissionKey, boolean> = {
 
 export function MerchantAiAssistant({ onAddToCart }: { onAddToCart?: (product: Product) => void }) {
   const [isEnabled, setIsEnabled] = useState(true);
-  const [isAfterHoursEnabled, setIsAfterHoursEnabled] = useState(true);
+  const [availabilityMode, setAvailabilityMode] = useState<AvailabilityMode>("always");
   const [isSuggestionsEnabled, setIsSuggestionsEnabled] = useState(true);
+  const [deliveryPolicy, setDeliveryPolicy] = useState("بغداد 4,000 د.ع، المحافظات 6,000 د.ع");
+  const [returnPolicy, setReturnPolicy] = useState("لا يوجد استرجاع للقطع المستعملة");
+  const [freeRepliesRemaining, setFreeRepliesRemaining] = useState(100);
   const [assistantMode, setAssistantMode] = useState<AssistantMode>("friendly");
   const [knowledgeTab, setKnowledgeTab] = useState<KnowledgeTab>("knowledge");
   const [permissions, setPermissions] = useState(initialPermissions);
@@ -85,7 +91,7 @@ export function MerchantAiAssistant({ onAddToCart }: { onAddToCart?: (product: P
     () => MOCK_PRODUCTS.filter((product) => product.in_stock),
     [],
   );
-  const storeData = useMemo(() => buildStoreRagData(availableProducts), [availableProducts]);
+  const storeData = useMemo(() => ({ ...buildStoreRagData(availableProducts), deliveryPolicy, returnPolicy }), [availableProducts, deliveryPolicy, returnPolicy]);
 
   const togglePermission = (key: PermissionKey) => {
     setPermissions((current) => ({ ...current, [key]: !current[key] }));
@@ -103,7 +109,7 @@ export function MerchantAiAssistant({ onAddToCart }: { onAddToCart?: (product: P
     setMessages((current) => [...current, customerMessage]);
     setInput("");
 
-    if (isHumanMode) {
+    if (!isEnabled || isHumanMode || availabilityMode === "off" || freeRepliesRemaining <= 0) {
       setMessages((current) => [
         ...current,
         {
@@ -115,8 +121,20 @@ export function MerchantAiAssistant({ onAddToCart }: { onAddToCart?: (product: P
       return;
     }
 
+    if (availabilityMode === "after_hours") {
+      const hour = new Date().getHours();
+      if (hour >= 9 && hour < 18) {
+        setMessages((current) => [...current, { id: Date.now() + 1, sender: "human", text: "سيتابع موظف المتجر رسالتك خلال ساعات العمل (09:00 - 18:00).", }]);
+        return;
+      }
+    }
+
     const answer = answerFromStoreData(storeData, text);
-    if (answer.action === "TRANSFER_TO_HUMAN") setHandoffReason("تم إيقاف الرد الآلي بسبب طلب تدخل بشري أو انخفاض الثقة.");
+    setFreeRepliesRemaining((current) => Math.max(0, current - 1));
+    if (answer.action === "TRANSFER_TO_HUMAN") {
+      setHandoffReason("تم إيقاف الرد الآلي بسبب طلب تدخل بشري أو انخفاض الثقة.");
+      setIsHumanMode(true);
+    }
 
     const aiMessage: ChatMessage = {
       id: Date.now() + 1,
@@ -143,7 +161,7 @@ export function MerchantAiAssistant({ onAddToCart }: { onAddToCart?: (product: P
           }`}
         >
           <span className={`size-2 rounded-full ${isEnabled ? "bg-emerald-500" : "bg-slate-400"}`} />
-          {isEnabled ? "يعمل الآن" : "متوقف مؤقتًا"}
+          {availabilityMode === "off" ? "متوقف مؤقتًا" : availabilityMode === "after_hours" ? "خارج أوقات العمل" : "يعمل الآن"}
         </button>
         <div className="flex items-center gap-2">
           <div className="grid size-10 place-items-center rounded-2xl bg-emerald-500 text-white shadow-md shadow-emerald-500/20">
@@ -156,6 +174,7 @@ export function MerchantAiAssistant({ onAddToCart }: { onAddToCart?: (product: P
         </div>
       </div>
       {handoffReason && <div className="flex items-start gap-2 rounded-2xl border border-amber-200 bg-amber-50 p-3 text-[10px] font-bold text-amber-800 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-200"><UserRound size={15} className="mt-0.5 shrink-0" /><span>{handoffReason} تم تنبيه التاجر ليتابع المحادثة.</span></div>}
+      <div className="flex items-center justify-between rounded-2xl border border-emerald-100 bg-emerald-50/60 px-3 py-2 text-[10px] dark:border-emerald-950/50 dark:bg-emerald-950/20"><span className="font-black text-emerald-700 dark:text-emerald-300">{freeRepliesRemaining} رد مجاني متبقٍ هذا الشهر</span><span className="text-slate-500">الباقة المجانية</span></div>
 
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         <Metric label="المحادثات اليوم" value="428" icon={MessageCircle} />
@@ -180,8 +199,8 @@ export function MerchantAiAssistant({ onAddToCart }: { onAddToCart?: (product: P
             </h4>
           </div>
 
-          <ToggleRow label="الرد التلقائي" enabled={isEnabled} onChange={() => setIsEnabled((current) => !current)} />
-          <ToggleRow label="الرد خارج أوقات العمل" enabled={isAfterHoursEnabled} onChange={() => setIsAfterHoursEnabled((current) => !current)} />
+          <ToggleRow label="الرد التلقائي" enabled={isEnabled && availabilityMode !== "off"} onChange={() => { setIsEnabled((current) => !current); setAvailabilityMode((current) => current === "off" ? "always" : "off"); }} />
+          <div className="space-y-2"><p className="text-[10px] font-black text-slate-400">نمط التشغيل</p><div className="grid grid-cols-3 gap-1">{([ ["always", "24/7"], ["after_hours", "خارج العمل"], ["off", "إيقاف"] ] as const).map(([value, label]) => <button type="button" key={value} onClick={() => setAvailabilityMode(value)} className={`rounded-lg px-2 py-2 text-[10px] font-bold ${availabilityMode === value ? "bg-emerald-500 text-white" : "bg-white text-slate-500 dark:bg-slate-900"}`}>{label}</button>)}</div></div>
           <ToggleRow label="اقتراح المنتجات" enabled={isSuggestionsEnabled} onChange={() => setIsSuggestionsEnabled((current) => !current)} />
 
           {isSettingsOpen && (
@@ -209,6 +228,8 @@ export function MerchantAiAssistant({ onAddToCart }: { onAddToCart?: (product: P
                   </button>
                 ))}
               </div>
+              <label className="block text-[10px] font-bold text-slate-500">سياسة التوصيل<input value={deliveryPolicy} onChange={(event) => setDeliveryPolicy(event.target.value)} className="mt-1 w-full rounded-xl border border-slate-200 bg-white p-2 text-[10px] outline-none dark:border-slate-700 dark:bg-slate-900" /></label>
+              <label className="block text-[10px] font-bold text-slate-500">سياسة الاستبدال<input value={returnPolicy} onChange={(event) => setReturnPolicy(event.target.value)} className="mt-1 w-full rounded-xl border border-slate-200 bg-white p-2 text-[10px] outline-none dark:border-slate-700 dark:bg-slate-900" /></label>
             </div>
           )}
         </div>

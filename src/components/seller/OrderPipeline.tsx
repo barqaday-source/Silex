@@ -20,7 +20,7 @@ export function OrderPipeline() {
   const printDocument = (order: SellerOrder, document: "invoice" | "waybill") => {
     const popup = window.open("", "_blank", "width=720,height=720");
     if (!popup) return;
-    popup.document.write(`<html dir="rtl"><head><title>${document === "invoice" ? "فاتورة" : "بوليصة توصيل"} ${order.id}</title><style>body{font-family:Arial;padding:40px}h1{color:#059669}table{width:100%;border-collapse:collapse}td{padding:12px;border-bottom:1px solid #ddd}</style></head><body><h1>سيلكس</h1><h2>${document === "invoice" ? "فاتورة الطلب" : "بوليصة التوصيل"} ${order.id}</h2><table><tr><td>العميل</td><td>${order.customer}</td></tr><tr><td>المحتويات</td><td>${order.items}</td></tr><tr><td>المبلغ نقداً</td><td>${order.amount.toLocaleString("ar-IQ")} د.ع</td></tr></table><script>window.print()</script></body></html>`);
+    popup.document.write(`<html dir="rtl"><head><title>${document === "invoice" ? "فاتورة" : "بوليصة توصيل"} ${order.id}</title><style>body{font-family:Arial;padding:40px}h1{color:#059669}table{width:100%;border-collapse:collapse}td{padding:12px;border-bottom:1px solid #ddd}</style></head><body><h1>صفصاف | Salix</h1><h2>${document === "invoice" ? "فاتورة الطلب" : "بوليصة التوصيل"} ${order.id}</h2><table><tr><td>العميل</td><td>${order.customer}</td></tr><tr><td>المحتويات</td><td>${order.items}</td></tr><tr><td>المبلغ نقداً</td><td>${order.amount.toLocaleString("ar-IQ")} د.ع</td></tr></table><script>window.print()</script></body></html>`);
     popup.document.close();
   };
 

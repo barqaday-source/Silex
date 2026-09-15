@@ -1,4 +1,5 @@
 import type { Product } from "@/types";
+import { supabase } from "@/integrations/supabase/client";
 
 export type StoreRagData = {
   name: string;
@@ -44,6 +45,36 @@ export const GENERATE_BOT_PROMPT = (storeData: StoreRagData, userMessage: string
 طريقة الدفع: نقداً عند الاستلام فقط (COD).
 رسالة التاجر الحالية: "${userMessage}"
 إذا طلب المستخدم التحدث مع التاجر أو ذكر مشكلة، أرجع {"action":"TRANSFER_TO_HUMAN"}.`;
+
+export async function loadSalixStoreContext(storeId: string): Promise<StoreRagData> {
+  const [{ data: products, error: productsError }, { data: inventory, error: inventoryError }, { data: stories, error: storiesError }] = await Promise.all([
+    supabase.from("products").select("id, name, price, status").eq("seller_id", storeId),
+    supabase.from("inventory_items").select("product_id, quantity").eq("store_id", storeId),
+    supabase.from("stories").select("id").eq("store_id", storeId).gt("expires_at", new Date().toISOString()),
+  ]);
+
+  if (productsError) throw new Error(`تعذر تحميل منتجات صفصاف: ${productsError.message}`);
+  if (inventoryError) throw new Error(`تعذر تحميل مخزون صفصاف: ${inventoryError.message}`);
+  if (storiesError) throw new Error(`تعذر تحميل ستوريات صفصاف: ${storiesError.message}`);
+
+  const quantityByProduct = new Map((inventory ?? []).map((item) => [item.product_id, item.quantity]));
+  const productContext = (products ?? []).map((product) => ({
+    id: product.id,
+    name: product.name,
+    price: product.price,
+    in_stock: product.status === "active" && (quantityByProduct.get(product.id) ?? 0) > 0,
+    quantity: quantityByProduct.get(product.id) ?? 0,
+  }));
+
+  return {
+    name: "متجر صفصاف",
+    products: productContext,
+    deliveryPolicy: "بغداد 2-3 أيام، البصرة 1-2 يوم",
+    returnPolicy: "الاستبدال خلال 7 أيام",
+    ledger: { outstanding: 0, collected: 0 },
+    stories: { active: stories?.length ?? 0, clicks: 0 },
+  };
+}
 
 export function buildStoreRagData(products: Product[]): StoreRagData {
   return { name: "متجر بغداد الرقمي", products: products.map((product) => ({ id: product.id, name: product.name, price: product.price, in_stock: product.in_stock, quantity: product.in_stock ? 1 : 0 })), deliveryPolicy: "بغداد 2-3 أيام، البصرة 1-2 يوم", returnPolicy: "الاستبدال خلال 7 أيام", ledger: { outstanding: 0, collected: 0 }, stories: { active: 0, clicks: 0 } };

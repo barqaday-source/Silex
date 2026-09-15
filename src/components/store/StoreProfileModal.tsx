@@ -51,7 +51,7 @@ export function StoreProfileModal({
 
           <div className="flex flex-wrap justify-center gap-3 pt-2">
             <button type="button" onClick={() => { if (store.phone) void navigator.clipboard?.writeText(store.phone); setCopied(true); }} className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold dark:border-slate-800"><Copy size={15} /> {copied ? "تم نسخ الرقم" : "نسخ رقم المتجر"}</button>
-            <button type="button" className="flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-500"><MessageCircle size={15} /> بدء محادثة داخل سيلكس</button>
+            <button type="button" className="flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-500"><MessageCircle size={15} /> بدء محادثة داخل صفصاف</button>
           </div>
         </div>
 

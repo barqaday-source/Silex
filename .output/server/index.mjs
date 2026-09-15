@@ -1,7 +1,7 @@
 globalThis.__nitro_main__ = import.meta.url;
 import { i as HTTPError, n as defineLazyEventHandler, t as H3Core } from "./_libs/h3+rou3+srvx.mjs";
 import { t as HookableCore } from "./_libs/hookable.mjs";
-import { t as FastResponse } from "./_libs/srvx.mjs";
+import { r as FastResponse } from "./_libs/h3-v2+rou3+srvx.mjs";
 //#region #nitro-vite-setup
 function lazyService(loader) {
 	let promise, mod;
@@ -16,33 +16,33 @@ globalThis.__nitro_vite_envs__ = services;
 //#endregion
 //#region #nitro/virtual/public-assets-data
 var public_assets_data_default = {
-	"/robots.txt": {
-		"type": "text/plain; charset=utf-8",
-		"etag": "\"a0-CKGXSIe7TSsqDTmGm/nY1t/o5d0\"",
-		"mtime": "2026-09-15T17:14:52.064Z",
-		"size": 160,
-		"path": "../public/robots.txt"
-	},
 	"/favicon.png": {
 		"type": "image/png",
 		"etag": "\"610-xFWBcyBBd1DWj5fBZePUmYiVSsY\"",
-		"mtime": "2026-09-15T17:14:52.064Z",
+		"mtime": "2026-09-15T18:17:45.063Z",
 		"size": 1552,
 		"path": "../public/favicon.png"
 	},
-	"/assets/styles-Ci9i68qI.css": {
-		"type": "text/css; charset=utf-8",
-		"etag": "\"244ca-7uf6R46TrRJaMwmyEWmk3JozBlQ\"",
-		"mtime": "2026-09-15T17:14:50.983Z",
-		"size": 148682,
-		"path": "../public/assets/styles-Ci9i68qI.css"
+	"/robots.txt": {
+		"type": "text/plain; charset=utf-8",
+		"etag": "\"a0-CKGXSIe7TSsqDTmGm/nY1t/o5d0\"",
+		"mtime": "2026-09-15T18:17:45.064Z",
+		"size": 160,
+		"path": "../public/robots.txt"
 	},
-	"/assets/index-DoIy4h3O.js": {
+	"/assets/styles-D-7IN-Tw.css": {
+		"type": "text/css; charset=utf-8",
+		"etag": "\"24e15-kGS3KmedrdWmoZyuyjKp1Tcpa08\"",
+		"mtime": "2026-09-15T18:17:44.399Z",
+		"size": 151061,
+		"path": "../public/assets/styles-D-7IN-Tw.css"
+	},
+	"/assets/index-_j_x-wrp.js": {
 		"type": "text/javascript; charset=utf-8",
-		"etag": "\"a6fd5-VlR6gtq6xppKn9NWQEy+TNW4ZBo\"",
-		"mtime": "2026-09-15T17:14:50.983Z",
-		"size": 683989,
-		"path": "../public/assets/index-DoIy4h3O.js"
+		"etag": "\"c10dc-qEW+dz+vRs42eb8sfKZdPpDeTG0\"",
+		"mtime": "2026-09-15T18:17:44.398Z",
+		"size": 790748,
+		"path": "../public/assets/index-_j_x-wrp.js"
 	}
 };
 //#endregion
@@ -54,7 +54,7 @@ function isPublicAssetURL(id = "") {
 	return false;
 }
 //#endregion
-//#region node_modules/.pnpm/nitro@3.0.260603-beta_jiti@2.7.0_vite@8.1.5_@types+node@22.20.2_jiti@2.7.0_/node_modules/nitro/dist/runtime/internal/route-rules.mjs
+//#region node_modules/nitro/dist/runtime/internal/route-rules.mjs
 var headers = ((m) => function headersRouteRule(event) {
 	for (const [key, value] of Object.entries(m.options || {})) event.res.headers.set(key, value);
 });
@@ -80,11 +80,11 @@ var findRouteRules = /* @__PURE__ */ (() => {
 		return r;
 	};
 })();
-var _lazy_0ZShP4 = defineLazyEventHandler(() => import("./_chunks/ssr-renderer.mjs"));
+var _lazy_ss3zXM = defineLazyEventHandler(() => import("./_chunks/ssr-renderer.mjs"));
 var findRoute = /* @__PURE__ */ (() => {
 	const data = {
 		route: "/**",
-		handler: _lazy_0ZShP4
+		handler: _lazy_ss3zXM
 	};
 	return ((_m, p) => {
 		return {
@@ -95,7 +95,7 @@ var findRoute = /* @__PURE__ */ (() => {
 })();
 [].filter(Boolean);
 //#endregion
-//#region node_modules/.pnpm/nitro@3.0.260603-beta_jiti@2.7.0_vite@8.1.5_@types+node@22.20.2_jiti@2.7.0_/node_modules/nitro/dist/runtime/internal/error/prod.mjs
+//#region node_modules/nitro/dist/runtime/internal/error/prod.mjs
 var errorHandler = (error, event) => {
 	const res = defaultHandler(error, event);
 	return new FastResponse(typeof res.body === "string" ? res.body : JSON.stringify(res.body, null, 2), res);
@@ -184,7 +184,7 @@ function createH3App(config) {
 	return h3App;
 }
 //#endregion
-//#region node_modules/.pnpm/nitro@3.0.260603-beta_jiti@2.7.0_vite@8.1.5_@types+node@22.20.2_jiti@2.7.0_/node_modules/nitro/dist/runtime/internal/app.mjs
+//#region node_modules/nitro/dist/runtime/internal/app.mjs
 var APP_ID = "default";
 function useNitroApp() {
 	let instance = useNitroApp._instance;
@@ -238,7 +238,7 @@ function getRouteRules(method, pathname) {
 	};
 }
 //#endregion
-//#region node_modules/.pnpm/nitro@3.0.260603-beta_jiti@2.7.0_vite@8.1.5_@types+node@22.20.2_jiti@2.7.0_/node_modules/nitro/dist/presets/cloudflare/runtime/_module-handler.mjs
+//#region node_modules/nitro/dist/presets/cloudflare/runtime/_module-handler.mjs
 function createHandler(hooks) {
 	const nitroApp = useNitroApp();
 	const nitroHooks = useNitroHooks();
@@ -312,7 +312,7 @@ function augmentReq(cfReq, ctx) {
 	req.waitUntil = ctx.context?.waitUntil.bind(ctx.context);
 }
 //#endregion
-//#region node_modules/.pnpm/nitro@3.0.260603-beta_jiti@2.7.0_vite@8.1.5_@types+node@22.20.2_jiti@2.7.0_/node_modules/nitro/dist/presets/cloudflare/runtime/cloudflare-module.mjs
+//#region node_modules/nitro/dist/presets/cloudflare/runtime/cloudflare-module.mjs
 var cloudflare_module_default = createHandler({ fetch(cfRequest, env, context, url) {
 	if (env.ASSETS && isPublicAssetURL(url.pathname)) return env.ASSETS.fetch(cfRequest);
 } });

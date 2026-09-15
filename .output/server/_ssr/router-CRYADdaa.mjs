@@ -1,12 +1,19 @@
 import { n as __toESM } from "../_runtime.mjs";
-import { n as require_jsx_runtime, r as require_react, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
-import { c as createFileRoute, d as useRouter, i as HeadContent, l as createRootRouteWithContext, o as createRouter, r as Scripts, s as Outlet, u as Link } from "../_libs/@tanstack/react-router+[...].mjs";
+import { t as supabase } from "./client-Gc5T2T2E.mjs";
+import { n as require_react } from "../_libs/@radix-ui/react-compose-refs+[...].mjs";
+import { c as HeadContent, d as Outlet, f as createFileRoute, g as useRouter, m as Link, p as createRootRouteWithContext, s as Scripts, u as createRouter } from "../_libs/@tanstack/react-router+[...].mjs";
+import { n as require_jsx_runtime, t as QueryClientProvider } from "../_libs/react+tanstack__react-query.mjs";
 import { t as QueryClient } from "../_libs/tanstack__query-core.mjs";
-import { A as History, B as ChevronDown, C as MessageSquare, D as LogOut, E as MapPin, F as CreditCard, G as Barcode, H as CheckCheck, I as CircleQuestionMark, J as ArrowRight, K as Award, L as CirclePlus, M as Globe, N as Gauge, O as Info, P as FileText, R as CircleCheck, S as PackageCheck, T as Menu, U as Bot, V as Check, W as Bell, Y as ArrowDown, _ as Search, a as TriangleAlert, b as Phone, c as Tag, d as ShoppingBag, f as ShieldCheck, g as Send, h as Settings2, i as UserRound, j as Heart, k as House, l as Store, m as Settings, n as Wallet, o as TrendingUp, p as Share2, q as ArrowUp, r as User, s as Ticket, t as X, u as Sparkles, v as QrCode, w as MessageCircle, x as Package, y as Plus, z as ChevronLeft } from "../_libs/lucide-react.mjs";
-//#region node_modules/.nitro/vite/services/ssr/assets/router-BwaWeKDr.js
+import { $ as CircleCheck, A as MapPin, B as Gauge, C as Printer, D as MessageSquare, E as PackageCheck, F as Info, G as EyeOff, H as FileText, I as House, J as CreditCard, K as EllipsisVertical, L as History, M as LogOut, N as Lock, O as MessageCircle, P as LoaderCircle, Q as CirclePlus, R as Heart, S as QrCode, T as Package, U as FileSpreadsheet, V as Flag, W as Eye, X as ClipboardList, Y as Copy, Z as CircleQuestionMark, _ as Share2, a as UserRound, at as Boxes, b as Send, c as TriangleAlert, ct as Barcode, d as Tag, dt as ArrowUp, et as ChevronLeft, f as Store, ft as ArrowUpFromLine, g as ShieldAlert, h as ShieldCheck, ht as ArrowDownToLine, i as User, it as ChartColumn, j as Mail, k as Menu, l as TrendingUp, lt as Ban, m as ShoppingBag, mt as ArrowDown, n as Wallet, nt as Check, o as Upload, ot as Bot, p as Sparkles, pt as ArrowRight, q as Download, r as WalletCards, rt as CheckCheck, s as Truck, st as Bell, t as X, tt as ChevronDown, u as Ticket, ut as Award, v as Settings, w as Plus, x as Search, y as Settings2, z as Globe } from "../_libs/lucide-react.mjs";
+import { t as Slot } from "../_libs/radix-ui__react-slot.mjs";
+import { n as clsx, t as cva } from "../_libs/class-variance-authority+clsx.mjs";
+import { t as twMerge } from "../_libs/tailwind-merge.mjs";
+import { t as createLovableAuth } from "../_libs/lovable.dev__cloud-auth-js.mjs";
+import { t as Toaster } from "../_libs/sonner.mjs";
+//#region node_modules/.nitro/vite/services/ssr/assets/router-CRYADdaa.js
 var import_react = /* @__PURE__ */ __toESM(require_react());
 var import_jsx_runtime = require_jsx_runtime();
-var styles_default = "/assets/styles-Ci9i68qI.css";
+var styles_default = "/assets/styles-D-7IN-Tw.css";
 function reportLovableError(error, context = {}) {
 	if (typeof window === "undefined") return;
 	window.__lovableEvents?.captureException?.(error, {
@@ -102,22 +109,22 @@ var Route$1 = createRootRouteWithContext()({
 				name: "viewport",
 				content: "width=device-width, initial-scale=1"
 			},
-			{ title: "تاجر" },
+			{ title: "صفصاف | Salix" },
 			{
 				name: "description",
-				content: "تطبيق تاجر للتسوق والتواصل"
+				content: "صفصاف Salix للتسوق والتجارة والتواصل"
 			},
 			{
 				name: "author",
-				content: "Tajer"
+				content: "Salix"
 			},
 			{
 				property: "og:title",
-				content: "تاجر"
+				content: "صفصاف | Salix"
 			},
 			{
 				property: "og:description",
-				content: "سوقك بلمسة واحدة"
+				content: "تسوق وتاجر بلمسة واحدة مع صفصاف"
 			},
 			{
 				property: "og:type",
@@ -160,7 +167,8 @@ var Route$1 = createRootRouteWithContext()({
 });
 function RootShell({ children }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("html", {
-		lang: "en",
+		lang: "ar",
+		dir: "rtl",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("head", { children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HeadContent, {}) }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("body", { children: [children, /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Scripts, {})] })]
 	});
 }
@@ -190,9 +198,9 @@ function Header({ cartCount, unreadNotificationsCount, searchQuery, onSearchChan
 						children: "S"
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
 						className: "text-base font-black tracking-tight text-slate-900 dark:text-white",
-						children: ["السوق ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						children: ["صفصاف ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 							className: "text-emerald-500",
-							children: "الذكي"
+							children: "Salix"
 						})]
 					})]
 				}),
@@ -471,7 +479,7 @@ function HomeScreen({ products, stores, stories, selectedCategory, onSelectCateg
 					onClick: () => onSelectStory(story),
 					className: "flex flex-col items-center gap-1 shrink-0",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						className: "size-16 rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-rose-500 to-emerald-500",
+						className: "size-12 rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-rose-500 to-emerald-500 sm:size-14",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
 							src: story.storeAvatar,
 							alt: story.storeName,
@@ -567,9 +575,12 @@ function HomeScreen({ products, stores, stories, selectedCategory, onSelectCateg
 		]
 	});
 }
-function CartDrawer({ isOpen, items, onClose, onUpdateQuantity }) {
+function CartDrawer({ isOpen, items, onClose, onUpdateQuantity, onContinueShopping }) {
 	if (!isOpen) return null;
 	const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+	const [cashAmount, setCashAmount] = (0, import_react.useState)("");
+	const [orderPlaced, setOrderPlaced] = (0, import_react.useState)(false);
+	const change = Number(cashAmount) >= total ? Number(cashAmount) - total : 0;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "fixed inset-0 z-50 bg-black/50 backdrop-blur-sm",
 		onClick: onClose,
@@ -589,14 +600,23 @@ function CartDrawer({ isOpen, items, onClose, onUpdateQuantity }) {
 					})]
 				}),
 				items.length === 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "mt-20 text-center text-slate-400 space-y-2",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ShoppingBag, {
-						size: 40,
-						className: "mx-auto text-slate-300"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						className: "text-xs font-bold",
-						children: "السلة فارغة حالياً"
-					})]
+					className: "mt-20 flex flex-col items-center space-y-3 text-center text-slate-400",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ShoppingBag, {
+							size: 40,
+							className: "mx-auto text-slate-300"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "text-xs font-bold",
+							children: "السلة فارغة حالياً"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							onClick: onContinueShopping,
+							className: "rounded-xl bg-emerald-50 px-4 py-2 text-[11px] font-black text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300",
+							children: "استكشف المنتجات"
+						})
+					]
 				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 					className: "mt-4 space-y-3 overflow-y-auto max-h-[calc(100vh-200px)]",
 					children: items.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -644,25 +664,73 @@ function CartDrawer({ isOpen, items, onClose, onUpdateQuantity }) {
 				}),
 				items.length > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "absolute bottom-5 left-5 right-5 border-t pt-4 dark:border-slate-800 space-y-3",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "flex justify-between text-sm font-black",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "الإجمالي:" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-							className: "text-emerald-600",
-							children: [total.toLocaleString("ar-IQ"), " د.ع"]
-						})]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-						className: "w-full rounded-2xl bg-emerald-500 py-3 text-xs font-black text-white hover:bg-emerald-600",
-						children: "إرسال الطلب عبر واتساب"
-					})]
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex justify-between text-sm font-black",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "الإجمالي:" }), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+								className: "text-emerald-600",
+								children: [total.toLocaleString("ar-IQ"), " د.ع"]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "rounded-2xl border border-emerald-100 bg-emerald-50/70 p-3 text-right dark:border-emerald-950/50 dark:bg-emerald-950/20",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+									className: "flex items-center gap-1 text-xs font-black text-emerald-800 dark:text-emerald-300",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, { size: 15 }), " الدفع عند الاستلام"]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+									className: "mt-2 block text-[10px] font-bold text-slate-600 dark:text-slate-300",
+									children: ["سأدفع بفئة نقدية", /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("select", {
+										value: cashAmount,
+										onChange: (event) => setCashAmount(event.target.value),
+										className: "mt-1 w-full rounded-xl border border-slate-200 bg-white p-2.5 text-xs outline-none dark:border-slate-700 dark:bg-slate-900",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+											value: "",
+											children: "اختيار الفئة"
+										}), [
+											5e4,
+											1e5,
+											25e4,
+											5e5,
+											1e6,
+											2e6
+										].filter((amount) => amount >= total).map((amount) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("option", {
+											value: amount,
+											children: [amount.toLocaleString("ar-IQ"), " د.ع"]
+										}, amount))]
+									})]
+								}),
+								cashAmount && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+									className: "mt-2 text-[11px] font-black text-emerald-700 dark:text-emerald-300",
+									children: [
+										"سيحضر المندوب باقي ",
+										change.toLocaleString("ar-IQ"),
+										" د.ع"
+									]
+								})
+							]
+						}),
+						orderPlaced ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center justify-center gap-2 rounded-2xl bg-emerald-500 py-3 text-xs font-black text-white",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, { size: 16 }), " تم تسجيل طلبك داخل صفصاف"]
+						}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							onClick: () => setOrderPlaced(true),
+							className: "w-full rounded-2xl bg-emerald-500 py-3 text-xs font-black text-white hover:bg-emerald-600",
+							children: "تأكيد الطلب نقداً عند الاستلام"
+						})
+					]
 				})
 			]
 		})
 	});
 }
-function StoryViewerModal({ story, onClose, onOpenStore }) {
+function StoryViewerModal({ story, onClose, onOpenStore, products, onAddToCart }) {
 	const [progress, setProgress] = (0, import_react.useState)(0);
 	const [liked, setLiked] = (0, import_react.useState)(false);
 	const [message, setMessage] = (0, import_react.useState)("");
+	const storyProduct = products.find((product) => product.id === story.productId);
 	(0, import_react.useEffect)(() => {
 		const timer = setInterval(() => {
 			setProgress((prev) => {
@@ -715,13 +783,30 @@ function StoryViewerModal({ story, onClose, onOpenStore }) {
 						})]
 					})]
 				}),
-				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "absolute inset-0 grid place-items-center p-2",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
 						src: story.mediaUrl,
 						alt: "Story",
-						className: "max-h-[75vh] w-full rounded-2xl object-cover"
-					})
+						className: "aspect-[9/16] max-h-[76vh] w-full rounded-2xl object-cover"
+					}), storyProduct && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "absolute bottom-24 left-6 right-6 flex items-center justify-between rounded-2xl bg-black/55 p-3 text-white backdrop-blur-md",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "min-w-0 text-right",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "truncate text-xs font-black",
+								children: storyProduct.name
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+								className: "mt-1 text-[11px] font-bold text-emerald-300",
+								children: [storyProduct.price.toLocaleString("ar-IQ"), " د.ع"]
+							})]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+							type: "button",
+							onClick: () => onAddToCart(storyProduct),
+							className: "flex shrink-0 items-center gap-1.5 rounded-xl bg-emerald-500 px-3 py-2 text-[11px] font-black text-white",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ShoppingBag, { size: 14 }), " شراء الآن"]
+						})]
+					})]
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "z-10 flex items-center gap-2 pt-4",
@@ -825,7 +910,7 @@ function NotificationsDrawer({ notifications, onClose, onMarkAllRead }) {
 		})
 	});
 }
-function ProductCard({ product, onOpen, onAddToCart }) {
+function ProductCard({ product, onOpen, onAddToCart, onInquiry }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-slate-100 bg-white p-3 shadow-sm transition hover:shadow-md dark:border-slate-800 dark:bg-slate-900",
 		children: [
@@ -871,11 +956,11 @@ function ProductCard({ product, onOpen, onAddToCart }) {
 					onClick: () => onAddToCart(product),
 					className: "flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-emerald-500 py-2 text-[11px] font-bold text-white transition hover:bg-emerald-600",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ShoppingBag, { size: 14 }), " إضافة"]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-					href: `https://wa.me/?text=${encodeURIComponent(product.name)}`,
-					target: "_blank",
-					rel: "noreferrer",
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					onClick: () => onInquiry ? onInquiry(product) : onOpen(product),
 					className: "grid size-8 place-items-center rounded-xl bg-slate-100 text-slate-600 hover:bg-emerald-50 hover:text-emerald-600 dark:bg-slate-800 dark:text-slate-300",
+					"aria-label": "استفسار داخل صفصاف",
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, { size: 15 })
 				})]
 			})
@@ -883,6 +968,7 @@ function ProductCard({ product, onOpen, onAddToCart }) {
 	});
 }
 function StoreProfileModal({ store, products, onClose, onOpenProduct, onAddToCart }) {
+	const [copied, setCopied] = (0, import_react.useState)(false);
 	const storeProducts = products.filter((p) => p.seller_name === store.name);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 		className: "fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm p-4 sm:p-6",
@@ -930,17 +1016,23 @@ function StoreProfileModal({ store, products, onClose, onOpenProduct, onAddToCar
 							]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							className: "flex justify-center gap-3 pt-2",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-								href: `https://wa.me/${store.phone}`,
-								target: "_blank",
-								rel: "noreferrer",
-								className: "flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-500",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, { size: 15 }), " مراسلة واتساب"]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-								href: `tel:${store.phone}`,
+							className: "flex flex-wrap justify-center gap-3 pt-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+								type: "button",
+								onClick: () => {
+									if (store.phone) navigator.clipboard?.writeText(store.phone);
+									setCopied(true);
+								},
 								className: "flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold dark:border-slate-800",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Phone, { size: 15 }), " اتصال مباشر"]
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Copy, { size: 15 }),
+									" ",
+									copied ? "تم نسخ الرقم" : "نسخ رقم المتجر"
+								]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+								type: "button",
+								className: "flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-500",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, { size: 15 }), " بدء محادثة داخل صفصاف"]
 							})]
 						})
 					]
@@ -967,12 +1059,39 @@ function StoreProfileModal({ store, products, onClose, onOpenProduct, onAddToCar
 		})
 	});
 }
-function BottomNavigation({ activeTab, unreadChatCount, onTabChange }) {
+function BottomNavigation({ activeTab, unreadChatCount, isSellerMode, onTabChange }) {
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
 		className: "fixed bottom-0 left-0 right-0 z-40 border-t border-slate-200/80 bg-white/95 backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/95",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			className: "mx-auto flex max-w-md items-center justify-around py-2 dir-rtl",
-			children: [
+			className: "mx-auto flex max-w-3xl items-center justify-around gap-1 px-2 py-2 dir-rtl",
+			children: (isSellerMode ? [
+				{
+					id: "seller-dashboard",
+					label: "لوحة المتجر",
+					icon: Store
+				},
+				{
+					id: "seller-orders",
+					label: "الطلبات",
+					icon: ClipboardList
+				},
+				{
+					id: "seller-inventory",
+					label: "المخزون",
+					icon: Boxes
+				},
+				{
+					id: "seller-analytics",
+					label: "التحليلات",
+					icon: ChartColumn
+				},
+				{
+					id: "chat",
+					label: "المحادثات",
+					icon: MessageSquare,
+					badge: unreadChatCount
+				}
+			] : [
 				{
 					id: "home",
 					label: "الرئيسية",
@@ -994,11 +1113,12 @@ function BottomNavigation({ activeTab, unreadChatCount, onTabChange }) {
 					label: "حسابي",
 					icon: User
 				}
-			].map((tab) => {
+			]).map((tab) => {
 				const Icon = tab.icon;
+				const isActive = activeTab === tab.id;
 				return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 					onClick: () => onTabChange(tab.id),
-					className: `relative flex flex-col items-center gap-1 px-3 py-1 transition ${activeTab === tab.id ? "scale-105 font-bold text-emerald-500" : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"}`,
+					className: `relative flex flex-col items-center gap-1 px-3 py-1 transition ${isActive ? "scale-105 font-bold text-emerald-500" : "text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"}`,
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "relative",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, { size: 20 }), !!tab.badge && tab.badge > 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
@@ -1112,10 +1232,16 @@ function ChatList({ conversations, onSelectConversation }) {
 		]
 	});
 }
-function ChatRoom({ conversation, onBack, onOpenStore }) {
+function ChatRoom({ conversation, onBack, onOpenStore, products = [] }) {
 	const [messages, setMessages] = (0, import_react.useState)(conversation.messages);
 	const [input, setInput] = (0, import_react.useState)("");
 	const [showTools, setShowTools] = (0, import_react.useState)(false);
+	const [showSafetyMenu, setShowSafetyMenu] = (0, import_react.useState)(false);
+	const [showReport, setShowReport] = (0, import_react.useState)(false);
+	const [blocked, setBlocked] = (0, import_react.useState)(false);
+	const [reportReason, setReportReason] = (0, import_react.useState)("احتيال");
+	const [offerAmount, setOfferAmount] = (0, import_react.useState)("");
+	const relatedProduct = products.find((product) => product.seller_id === conversation.storeId) ?? products[0];
 	const quickReplies = [
 		"هل المنتج متوفر؟",
 		"كم سعر النهائي مع التوصيل؟",
@@ -1132,6 +1258,40 @@ function ChatRoom({ conversation, onBack, onOpenStore }) {
 		};
 		setMessages((prev) => [...prev, newMsg]);
 		if (!textToSend) setInput("");
+	};
+	const sendProductCard = () => {
+		if (!relatedProduct) return;
+		setMessages((current) => [...current, {
+			id: Date.now().toString(),
+			sender: "user",
+			text: "أرغب بالاستفسار عن هذا المنتج داخل صفصاف.",
+			time: "الآن",
+			type: "product",
+			productDetails: {
+				id: relatedProduct.id,
+				name: relatedProduct.name,
+				price: relatedProduct.price,
+				image: relatedProduct.image_url
+			}
+		}]);
+		setShowTools(false);
+	};
+	const sendOffer = () => {
+		const amount = Number(offerAmount);
+		if (!Number.isFinite(amount) || amount <= 0) return;
+		setMessages((current) => [...current, {
+			id: Date.now().toString(),
+			sender: "user",
+			time: "الآن",
+			type: "offer",
+			text: "عرض خاص للطلب داخل صفصاف.",
+			offerDetails: {
+				amount,
+				expiresIn: "24 ساعة"
+			}
+		}]);
+		setOfferAmount("");
+		setShowTools(false);
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "fixed inset-0 z-50 flex flex-col bg-slate-50 dark:bg-slate-950",
@@ -1161,15 +1321,53 @@ function ChatRoom({ conversation, onBack, onOpenStore }) {
 							})]
 						})]
 					})]
-				}), onOpenStore && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-					onClick: () => onOpenStore(conversation.storeId),
-					className: "flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1.5 text-[11px] font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-600 dark:bg-slate-800 dark:text-slate-200",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Store, { size: 14 }), " المتجر"]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "relative flex items-center gap-2",
+					children: [
+						onOpenStore && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+							onClick: () => onOpenStore(conversation.storeId),
+							className: "flex items-center gap-1.5 rounded-xl bg-slate-100 px-3 py-1.5 text-[11px] font-bold text-slate-700 hover:bg-emerald-50 hover:text-emerald-600 dark:bg-slate-800 dark:text-slate-200",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Store, { size: 14 }), " المتجر"]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+							type: "button",
+							onClick: () => setShowSafetyMenu((current) => !current),
+							className: "grid size-9 place-items-center rounded-xl bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-200",
+							"aria-label": "خيارات المحادثة",
+							children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(EllipsisVertical, { size: 18 })
+						}),
+						showSafetyMenu && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "absolute left-0 top-11 z-20 w-44 rounded-2xl border border-slate-200 bg-white p-1.5 text-right shadow-xl dark:border-slate-700 dark:bg-slate-900",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+								type: "button",
+								onClick: () => {
+									setBlocked(true);
+									setShowSafetyMenu(false);
+								},
+								className: "flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold text-rose-600 hover:bg-rose-50",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Ban, { size: 14 }), " حظر المتجر"]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+								type: "button",
+								onClick: () => {
+									setShowReport(true);
+									setShowSafetyMenu(false);
+								},
+								className: "flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Flag, { size: 14 }), " إبلاغ عن انتهاك"]
+							})]
+						})
+					]
 				})]
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "flex-1 overflow-y-auto p-4 space-y-3",
-				children: messages.map((msg) => {
+				children: [blocked && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mx-auto max-w-sm rounded-2xl border border-rose-200 bg-rose-50 p-4 text-center text-xs font-bold text-rose-700",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Ban, {
+						size: 18,
+						className: "mx-auto mb-2"
+					}), "تم حظر هذا المتجر ولن تصلك رسائل جديدة."]
+				}), messages.map((msg) => {
 					const isUser = msg.sender === "user";
 					return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: `flex flex-col ${isUser ? "items-start" : "items-end"}`,
@@ -1210,6 +1408,19 @@ function ChatRoom({ conversation, onBack, onOpenStore }) {
 									children: msg.orderDetails.status
 								})]
 							}),
+							msg.type === "offer" && msg.offerDetails && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "mb-2 w-full max-w-xs rounded-2xl border border-amber-200 bg-amber-50 p-3 text-right dark:border-amber-900 dark:bg-amber-950/30",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									className: "flex items-center justify-between text-xs font-black text-amber-800 dark:text-amber-300",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+										className: "flex items-center gap-1",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, { size: 14 }), " عرض خاص"]
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: msg.offerDetails.expiresIn })]
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+									className: "mt-2 text-lg font-black text-amber-900 dark:text-amber-200",
+									children: [msg.offerDetails.amount.toLocaleString("ar-IQ"), " د.ع"]
+								})]
+							}),
 							msg.text && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: `max-w-[80%] rounded-2xl px-4 py-2.5 text-xs font-bold shadow-sm ${isUser ? "bg-emerald-500 text-white rounded-br-none" : "bg-white text-slate-800 dark:bg-slate-800 dark:text-slate-100 rounded-bl-none"}`,
 								children: [msg.text, /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
@@ -1219,7 +1430,7 @@ function ChatRoom({ conversation, onBack, onOpenStore }) {
 							})
 						]
 					}, msg.id);
-				})
+				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
 				className: "flex gap-1.5 overflow-x-auto px-4 py-2 bg-slate-100 dark:bg-slate-900/50 no-scrollbar",
@@ -1232,19 +1443,48 @@ function ChatRoom({ conversation, onBack, onOpenStore }) {
 			showTools && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "grid grid-cols-3 gap-2 bg-white p-3 border-t dark:bg-slate-900 dark:border-slate-800 text-center text-xs font-bold",
 				children: [
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						onClick: sendProductCard,
 						className: "rounded-xl bg-slate-100 p-2 text-slate-700 dark:bg-slate-800 dark:text-slate-200",
-						children: "💰 إرسال عرض سعر"
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Package, {
+							size: 15,
+							className: "mx-auto mb-1"
+						}), "إرسال المنتج"]
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						onClick: sendOffer,
 						className: "rounded-xl bg-slate-100 p-2 text-slate-700 dark:bg-slate-800 dark:text-slate-200",
-						children: "📦 ربط بطلب"
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Tag, {
+							size: 15,
+							className: "mx-auto mb-1"
+						}), "إرسال العرض"]
 					}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+						type: "button",
+						onClick: () => setShowTools(false),
 						className: "rounded-xl bg-slate-100 p-2 text-slate-700 dark:bg-slate-800 dark:text-slate-200",
-						children: "📍 إرسال موقع"
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, {
+							size: 15,
+							className: "mx-auto mb-1"
+						}), "إغلاق"]
 					})
 				]
+			}),
+			showTools && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "border-t bg-amber-50 p-3 text-right dark:border-slate-800 dark:bg-amber-950/20",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+					className: "block text-[10px] font-bold text-amber-900 dark:text-amber-200",
+					children: ["قيمة العرض الخاص", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+						value: offerAmount,
+						onChange: (event) => setOfferAmount(event.target.value),
+						type: "number",
+						min: "1",
+						placeholder: "مثال: 85000",
+						className: "mt-1 w-full rounded-xl border border-amber-200 bg-white p-2 text-xs outline-none dark:border-amber-900 dark:bg-slate-900"
+					})]
+				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "flex items-center gap-2 border-t border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-900",
@@ -1268,6 +1508,51 @@ function ChatRoom({ conversation, onBack, onOpenStore }) {
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Send, { size: 18 })
 					})
 				]
+			}),
+			showReport && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				className: "fixed inset-0 z-[60] grid place-items-center bg-black/60 p-4",
+				onClick: () => setShowReport(false),
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "w-full max-w-sm rounded-3xl bg-white p-5 text-right shadow-2xl dark:bg-slate-900",
+					onClick: (event) => event.stopPropagation(),
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "flex items-center justify-between",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+								type: "button",
+								onClick: () => setShowReport(false),
+								className: "grid size-8 place-items-center rounded-xl bg-slate-100 dark:bg-slate-800",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(X, { size: 15 })
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+								className: "text-sm font-black",
+								children: "إبلاغ عن انتهاك"
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-3 text-xs text-slate-500",
+							children: "اختر سبب البلاغ ليبقى التواصل آمناً داخل صفصاف."
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "mt-3 space-y-2",
+							children: [
+								"احتيال",
+								"تأخير متكرر",
+								"أسلوب غير لائق"
+							].map((reason) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+								type: "button",
+								onClick: () => setReportReason(reason),
+								className: `flex w-full items-center justify-between rounded-xl border p-3 text-xs font-bold ${reportReason === reason ? "border-emerald-500 bg-emerald-50 text-emerald-700" : "border-slate-200 dark:border-slate-700"}`,
+								children: [reason, reportReason === reason && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, { size: 14 })]
+							}, reason))
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+							type: "button",
+							onClick: () => setShowReport(false),
+							className: "mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-rose-500 py-2.5 text-xs font-black text-white",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ShieldAlert, { size: 15 }), " إرسال البلاغ"]
+						})
+					]
+				})
 			})
 		]
 	});
@@ -1295,14 +1580,16 @@ var MOCK_STORIES = [{
 	storeName: "بغداد سبورت",
 	storeAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
 	mediaUrl: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
-	createdAt: "قبل 15 دقيقة"
+	createdAt: "قبل 15 دقيقة",
+	productId: "p1"
 }, {
 	id: "s2",
 	storeId: "2",
 	storeName: "المنصور تِك",
 	storeAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
 	mediaUrl: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600",
-	createdAt: "قبل ساعة"
+	createdAt: "قبل ساعة",
+	productId: "p2"
 }];
 var MOCK_PRODUCTS = [{
 	id: "p1",
@@ -1344,6 +1631,57 @@ var MOCK_NOTIFICATIONS = [{
 	read: false,
 	type: "discount"
 }];
+function buildStoreRagData(products) {
+	return {
+		name: "متجر بغداد الرقمي",
+		products: products.map((product) => ({
+			id: product.id,
+			name: product.name,
+			price: product.price,
+			in_stock: product.in_stock,
+			quantity: product.in_stock ? 1 : 0
+		})),
+		deliveryPolicy: "بغداد 2-3 أيام، البصرة 1-2 يوم",
+		returnPolicy: "الاستبدال خلال 7 أيام",
+		ledger: {
+			outstanding: 0,
+			collected: 0
+		},
+		stories: {
+			active: 0,
+			clicks: 0
+		}
+	};
+}
+function answerFromStoreData(storeData, userMessage) {
+	const message = userMessage.trim().toLowerCase();
+	if (/التاجر|موظف|مشكلة|غاضب|شكوى|human/.test(message)) return {
+		intent: "TRANSFER_TO_HUMAN",
+		text_response: "سأحوّل المحادثة الآن إلى موظف المتجر لمساعدتك بدقة.",
+		action: "TRANSFER_TO_HUMAN"
+	};
+	if (/توصيل|شحن|يوصل/.test(message)) return {
+		intent: "DELIVERY_QUERY",
+		text_response: `التوصيل: ${storeData.deliveryPolicy}`
+	};
+	const product = storeData.products.find((item) => message.includes(item.name.toLowerCase()) || item.name.toLowerCase().split(" ").some((word) => word.length > 3 && message.includes(word)));
+	if (!product) return {
+		intent: "UNKNOWN",
+		text_response: "عذراً، هذا المنتج غير متوفر حالياً. يمكنني تحويلك إلى موظف المتجر."
+	};
+	if (!product.in_stock || product.quantity <= 0) return {
+		intent: "INVENTORY_QUERY",
+		text_response: "عذراً، هذا المنتج غير متوفر حالياً."
+	};
+	return {
+		intent: "RECOMMEND_PRODUCT",
+		text_response: `هذا المنتج متوفر بسعر ${product.price.toLocaleString("ar-IQ")} د.ع.`,
+		widget: {
+			type: "PRODUCT_CARD",
+			data: product
+		}
+	};
+}
 var permissionLabels = {
 	products: "الإجابة عن المنتجات",
 	prices: "الإجابة عن الأسعار",
@@ -1360,10 +1698,13 @@ var initialPermissions = {
 	recommendations: true,
 	faq: true
 };
-function MerchantAiAssistant() {
+function MerchantAiAssistant({ onAddToCart }) {
 	const [isEnabled, setIsEnabled] = (0, import_react.useState)(true);
-	const [isAfterHoursEnabled, setIsAfterHoursEnabled] = (0, import_react.useState)(true);
+	const [availabilityMode, setAvailabilityMode] = (0, import_react.useState)("always");
 	const [isSuggestionsEnabled, setIsSuggestionsEnabled] = (0, import_react.useState)(true);
+	const [deliveryPolicy, setDeliveryPolicy] = (0, import_react.useState)("بغداد 4,000 د.ع، المحافظات 6,000 د.ع");
+	const [returnPolicy, setReturnPolicy] = (0, import_react.useState)("لا يوجد استرجاع للقطع المستعملة");
+	const [freeRepliesRemaining, setFreeRepliesRemaining] = (0, import_react.useState)(100);
 	const [assistantMode, setAssistantMode] = (0, import_react.useState)("friendly");
 	const [knowledgeTab, setKnowledgeTab] = (0, import_react.useState)("knowledge");
 	const [permissions, setPermissions] = (0, import_react.useState)(initialPermissions);
@@ -1379,7 +1720,17 @@ function MerchantAiAssistant() {
 		sender: "ai",
 		text: "هلا بيك 🌷 نعم، أفحص المنتجات والمخزون الفعلي حتى أرشح لك الأنسب."
 	}]);
+	const [handoffReason, setHandoffReason] = (0, import_react.useState)(null);
 	const availableProducts = (0, import_react.useMemo)(() => MOCK_PRODUCTS.filter((product) => product.in_stock), []);
+	const storeData = (0, import_react.useMemo)(() => ({
+		...buildStoreRagData(availableProducts),
+		deliveryPolicy,
+		returnPolicy
+	}), [
+		availableProducts,
+		deliveryPolicy,
+		returnPolicy
+	]);
 	const togglePermission = (key) => {
 		setPermissions((current) => ({
 			...current,
@@ -1396,7 +1747,7 @@ function MerchantAiAssistant() {
 		};
 		setMessages((current) => [...current, customerMessage]);
 		setInput("");
-		if (isHumanMode) {
+		if (!isEnabled || isHumanMode || availabilityMode === "off" || freeRepliesRemaining <= 0) {
 			setMessages((current) => [...current, {
 				id: Date.now() + 1,
 				sender: "human",
@@ -1404,17 +1755,32 @@ function MerchantAiAssistant() {
 			}]);
 			return;
 		}
-		const product = availableProducts.find((product) => {
-			const firstWord = product.name.toLowerCase().split(" ")[0] ?? "";
-			return firstWord.length > 0 && text.toLowerCase().includes(firstWord);
-		}) ?? availableProducts[0];
-		const response = product && permissions.inventory ? `أكيد، ${product.name} متوفر حاليًا بسعر ${product.price.toLocaleString("ar-IQ")} د.ع. أقدر أعرضه لك أو أضيفه للسلة بعد تأكيدك.` : permissions.faq ? "هلا بيك، أقدر أساعدك بالمنتجات والأسعار والتوصيل. اختر أحد الاقتراحات أو حوّل المحادثة لموظف المتجر." : "سأحوّل سؤالك لموظف المتجر حتى تحصل على إجابة دقيقة.";
+		if (availabilityMode === "after_hours") {
+			const hour = (/* @__PURE__ */ new Date()).getHours();
+			if (hour >= 9 && hour < 18) {
+				setMessages((current) => [...current, {
+					id: Date.now() + 1,
+					sender: "human",
+					text: "سيتابع موظف المتجر رسالتك خلال ساعات العمل (09:00 - 18:00)."
+				}]);
+				return;
+			}
+		}
+		const answer = answerFromStoreData(storeData, text);
+		setFreeRepliesRemaining((current) => Math.max(0, current - 1));
+		if (answer.action === "TRANSFER_TO_HUMAN") {
+			setHandoffReason("تم إيقاف الرد الآلي بسبب طلب تدخل بشري أو انخفاض الثقة.");
+			setIsHumanMode(true);
+		}
 		const aiMessage = {
 			id: Date.now() + 1,
 			sender: "ai",
-			text: response
+			text: answer.text_response
 		};
-		if (product) aiMessage.productId = product.id;
+		if (answer.widget) {
+			aiMessage.productId = answer.widget.data.id;
+			aiMessage.widgetProductId = answer.widget.data.id;
+		}
 		setMessages((current) => [...current, aiMessage]);
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
@@ -1426,7 +1792,7 @@ function MerchantAiAssistant() {
 					type: "button",
 					onClick: () => setIsEnabled((current) => !current),
 					className: `flex items-center gap-2 rounded-full px-3 py-1.5 text-[10px] font-black transition ${isEnabled ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-950/50 dark:text-emerald-300" : "bg-slate-100 text-slate-500 dark:bg-slate-800"}`,
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `size-2 rounded-full ${isEnabled ? "bg-emerald-500" : "bg-slate-400"}` }), isEnabled ? "يعمل الآن" : "متوقف مؤقتًا"]
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: `size-2 rounded-full ${isEnabled ? "bg-emerald-500" : "bg-slate-400"}` }), availabilityMode === "off" ? "متوقف مؤقتًا" : availabilityMode === "after_hours" ? "خارج أوقات العمل" : "يعمل الآن"]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "flex items-center gap-2",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
@@ -1434,11 +1800,28 @@ function MerchantAiAssistant() {
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Bot, { size: 21 })
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
 						className: "text-sm font-black",
-						children: "مساعد المتجر الذكي"
+						children: "مساعد صفصاف الذكي"
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 						className: "text-[10px] text-slate-400",
-						children: "AI Store Assistant"
+						children: "Salix AI Assistant · SELX"
 					})] })]
+				})]
+			}),
+			handoffReason && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-start gap-2 rounded-2xl border border-amber-200 bg-amber-50 p-3 text-[10px] font-bold text-amber-800 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-200",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(UserRound, {
+					size: 15,
+					className: "mt-0.5 shrink-0"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", { children: [handoffReason, " تم تنبيه التاجر ليتابع المحادثة."] })]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center justify-between rounded-2xl border border-emerald-100 bg-emerald-50/60 px-3 py-2 text-[10px] dark:border-emerald-950/50 dark:bg-emerald-950/20",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+					className: "font-black text-emerald-700 dark:text-emerald-300",
+					children: [freeRepliesRemaining, " رد مجاني متبقٍ هذا الشهر"]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "text-slate-500",
+					children: "الباقة المجانية"
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -1489,13 +1872,30 @@ function MerchantAiAssistant() {
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ToggleRow, {
 							label: "الرد التلقائي",
-							enabled: isEnabled,
-							onChange: () => setIsEnabled((current) => !current)
+							enabled: isEnabled && availabilityMode !== "off",
+							onChange: () => {
+								setIsEnabled((current) => !current);
+								setAvailabilityMode((current) => current === "off" ? "always" : "off");
+							}
 						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ToggleRow, {
-							label: "الرد خارج أوقات العمل",
-							enabled: isAfterHoursEnabled,
-							onChange: () => setIsAfterHoursEnabled((current) => !current)
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							className: "space-y-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "text-[10px] font-black text-slate-400",
+								children: "نمط التشغيل"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								className: "grid grid-cols-3 gap-1",
+								children: [
+									["always", "24/7"],
+									["after_hours", "خارج العمل"],
+									["off", "إيقاف"]
+								].map(([value, label]) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+									type: "button",
+									onClick: () => setAvailabilityMode(value),
+									className: `rounded-lg px-2 py-2 text-[10px] font-bold ${availabilityMode === value ? "bg-emerald-500 text-white" : "bg-white text-slate-500 dark:bg-slate-900"}`,
+									children: label
+								}, value))
+							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ToggleRow, {
 							label: "اقتراح المنتجات",
@@ -1504,26 +1904,45 @@ function MerchantAiAssistant() {
 						}),
 						isSettingsOpen && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 							className: "space-y-2 border-t border-slate-200 pt-3 dark:border-slate-700",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "text-[10px] font-black text-slate-400",
-								children: "شخصية المساعد"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								className: "grid grid-cols-2 gap-2",
-								children: [
-									["friendly", "ودود"],
-									["formal", "رسمي"],
-									["concise", "مختصر"],
-									["store", "أسلوب المتجر"]
-								].map(([value, label]) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
-									type: "button",
-									onClick: () => setAssistantMode(value),
-									className: `rounded-xl px-2 py-2 text-[10px] font-bold ${assistantMode === value ? "bg-emerald-500 text-white" : "bg-white text-slate-600 dark:bg-slate-900 dark:text-slate-300"}`,
-									children: [assistantMode === value && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, {
-										size: 12,
-										className: "mr-1 inline"
-									}), label]
-								}, value))
-							})]
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "text-[10px] font-black text-slate-400",
+									children: "شخصية المساعد"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									className: "grid grid-cols-2 gap-2",
+									children: [
+										["friendly", "ودود"],
+										["formal", "رسمي"],
+										["concise", "مختصر"],
+										["store", "أسلوب المتجر"]
+									].map(([value, label]) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+										type: "button",
+										onClick: () => setAssistantMode(value),
+										className: `rounded-xl px-2 py-2 text-[10px] font-bold ${assistantMode === value ? "bg-emerald-500 text-white" : "bg-white text-slate-600 dark:bg-slate-900 dark:text-slate-300"}`,
+										children: [assistantMode === value && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, {
+											size: 12,
+											className: "mr-1 inline"
+										}), label]
+									}, value))
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+									className: "block text-[10px] font-bold text-slate-500",
+									children: ["سياسة التوصيل", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+										value: deliveryPolicy,
+										onChange: (event) => setDeliveryPolicy(event.target.value),
+										className: "mt-1 w-full rounded-xl border border-slate-200 bg-white p-2 text-[10px] outline-none dark:border-slate-700 dark:bg-slate-900"
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("label", {
+									className: "block text-[10px] font-bold text-slate-500",
+									children: ["سياسة الاستبدال", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+										value: returnPolicy,
+										onChange: (event) => setReturnPolicy(event.target.value),
+										className: "mt-1 w-full rounded-xl border border-slate-200 bg-white p-2 text-[10px] outline-none dark:border-slate-700 dark:bg-slate-900"
+									})]
+								})
+							]
 						})
 					]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -1633,10 +2052,28 @@ function MerchantAiAssistant() {
 							className: `flex ${message.sender === "customer" ? "justify-start" : "justify-end"}`,
 							children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								className: `max-w-[88%] rounded-2xl px-3 py-2 text-[11px] font-medium ${message.sender === "customer" ? "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200" : message.sender === "human" ? "bg-amber-100 text-amber-800" : "bg-emerald-500 text-white"}`,
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: message.text }), message.productId && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "mt-2 flex items-center gap-2 rounded-xl bg-white/15 p-2 text-[10px]",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Package, { size: 13 }), " تحقق من المنتج والمخزون قبل الإضافة"]
-								})]
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { children: message.text }), message.widgetProductId && (() => {
+									const product = availableProducts.find((item) => item.id === message.widgetProductId);
+									return product ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										className: "mt-2 overflow-hidden rounded-xl bg-white/15 p-2 text-[10px]",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+											src: product.image_url,
+											alt: product.name,
+											className: "mb-2 aspect-video w-full rounded-lg object-cover"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											className: "flex items-center justify-between gap-2",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												className: "truncate font-black",
+												children: product.name
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+												type: "button",
+												onClick: () => onAddToCart?.(product),
+												className: "shrink-0 rounded-lg bg-white px-2 py-1 font-black text-emerald-700",
+												children: "إضافة للسلة"
+											})]
+										})]
+									}) : null;
+								})()]
 							})
 						}, message.id))
 					}),
@@ -2241,24 +2678,402 @@ function ModalShell({ title, children, onClose }) {
 		})
 	});
 }
-function ProfileScreen() {
-	const [accountMode, setAccountMode] = (0, import_react.useState)("personal");
+var statusLabels = {
+	new: "جديد",
+	packing: "قيد التجميع",
+	shipped: "تم الشحن",
+	completed: "مكتمل",
+	cancelled: "ملغى"
+};
+var nextStatus = {
+	new: "packing",
+	packing: "shipped",
+	shipped: "completed"
+};
+var initialOrders = [
+	{
+		id: "#18294",
+		customer: "سارة أحمد",
+		items: "حذاء نايكي • 43",
+		amount: 9e4,
+		status: "new"
+	},
+	{
+		id: "#18291",
+		customer: "محمد علي",
+		items: "آيفون 15 برو",
+		amount: 145e4,
+		status: "packing"
+	},
+	{
+		id: "#18288",
+		customer: "نور حسين",
+		items: "حذاء نايكي • 42",
+		amount: 9e4,
+		status: "shipped"
+	},
+	{
+		id: "#18271",
+		customer: "علي كريم",
+		items: "إكسسوارات رياضية",
+		amount: 125e3,
+		status: "completed"
+	}
+];
+function OrderPipeline() {
+	const [orders, setOrders] = (0, import_react.useState)(initialOrders);
+	const columns = [
+		"new",
+		"packing",
+		"shipped",
+		"completed",
+		"cancelled"
+	];
+	const moveOrder = (orderId) => setOrders((current) => current.map((order) => order.id === orderId && nextStatus[order.status] ? {
+		...order,
+		status: nextStatus[order.status]
+	} : order));
+	const printDocument = (order, document) => {
+		const popup = window.open("", "_blank", "width=720,height=720");
+		if (!popup) return;
+		popup.document.write(`<html dir="rtl"><head><title>${document === "invoice" ? "فاتورة" : "بوليصة توصيل"} ${order.id}</title><style>body{font-family:Arial;padding:40px}h1{color:#059669}table{width:100%;border-collapse:collapse}td{padding:12px;border-bottom:1px solid #ddd}</style></head><body><h1>صفصاف | Salix</h1><h2>${document === "invoice" ? "فاتورة الطلب" : "بوليصة التوصيل"} ${order.id}</h2><table><tr><td>العميل</td><td>${order.customer}</td></tr><tr><td>المحتويات</td><td>${order.items}</td></tr><tr><td>المبلغ نقداً</td><td>${order.amount.toLocaleString("ar-IQ")} د.ع</td></tr></table><script>window.print()<\/script></body></html>`);
+		popup.document.close();
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "space-y-4 rounded-3xl border border-emerald-100 bg-white p-4 shadow-sm dark:border-emerald-950/50 dark:bg-slate-900",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "flex items-center justify-between",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+				className: "text-[10px] font-bold text-slate-400",
+				children: [orders.length, " طلبات نشطة"]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
+				className: "flex items-center gap-2 text-sm font-black",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(PackageCheck, {
+					size: 18,
+					className: "text-emerald-500"
+				}), " خط سير الطلبات"]
+			})]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "grid gap-3 xl:grid-cols-5",
+			children: columns.map((status) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "min-h-44 rounded-2xl bg-slate-50 p-2.5 dark:bg-slate-800/60",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mb-3 flex items-center justify-between",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						className: "rounded-full bg-white px-2 py-1 text-[10px] font-black shadow-sm dark:bg-slate-900",
+						children: orders.filter((order) => order.status === status).length
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+						className: "text-xs font-black",
+						children: statusLabels[status]
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "space-y-2",
+					children: orders.filter((order) => order.status === status).map((order) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("article", {
+						className: "rounded-xl border border-slate-200 bg-white p-3 text-right shadow-sm dark:border-slate-700 dark:bg-slate-900",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "flex items-center justify-between text-[10px] font-black",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									className: "text-emerald-600",
+									children: order.id
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: order.customer })]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								className: "mt-2 text-[10px] text-slate-500",
+								children: order.items
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+								className: "mt-2 text-[11px] font-black",
+								children: [order.amount.toLocaleString("ar-IQ"), " د.ع"]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								className: "mt-3 flex gap-1",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "button",
+										onClick: () => printDocument(order, "invoice"),
+										className: "grid size-8 place-items-center rounded-lg bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-200",
+										"aria-label": "طباعة الفاتورة",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FileText, { size: 13 })
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+										type: "button",
+										onClick: () => printDocument(order, "waybill"),
+										className: "grid size-8 place-items-center rounded-lg bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-200",
+										"aria-label": "طباعة بوليصة التوصيل",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Printer, { size: 13 })
+									}),
+									nextStatus[status] && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+										type: "button",
+										onClick: () => moveOrder(order.id),
+										className: "flex flex-1 items-center justify-center gap-1 rounded-lg bg-emerald-50 px-2 text-[9px] font-black text-emerald-700 dark:bg-emerald-950/30 dark:text-emerald-300",
+										children: ["التالي ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Truck, { size: 12 })]
+									})
+								]
+							})
+						]
+					}, order.id))
+				})]
+			}, status))
+		})]
+	});
+}
+function CodLedger() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "space-y-4 rounded-3xl border border-emerald-100 bg-white p-4 shadow-sm dark:border-emerald-950/50 dark:bg-slate-900",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center justify-between",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "rounded-full bg-amber-50 px-2 py-1 text-[10px] font-black text-amber-700 dark:bg-amber-950/30 dark:text-amber-300",
+					children: "تحديث اليوم"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
+					className: "flex items-center gap-2 text-sm font-black",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(WalletCards, {
+						size: 18,
+						className: "text-emerald-500"
+					}), " دفتر حسابات الكاش"]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-3 sm:grid-cols-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "rounded-2xl border border-amber-200 bg-amber-50 p-4 text-right dark:border-amber-900/50 dark:bg-amber-950/20",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowUpFromLine, {
+							size: 18,
+							className: "text-amber-600"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-3 text-[10px] font-bold text-amber-800 dark:text-amber-300",
+							children: "مبالغ معلقة عند المندوب"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", {
+							className: "mt-1 block text-xl font-black text-amber-900 dark:text-amber-200",
+							children: "1,275,000 د.ع"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "mt-1 block text-[10px] text-amber-700 dark:text-amber-300",
+							children: "9 طلبات بانتظار التسوية"
+						})
+					]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-right dark:border-emerald-900/50 dark:bg-emerald-950/20",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowDownToLine, {
+							size: 18,
+							className: "text-emerald-600"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+							className: "mt-3 text-[10px] font-bold text-emerald-800 dark:text-emerald-300",
+							children: "المبالغ المحصلة في المحفظة"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", {
+							className: "mt-1 block text-xl font-black text-emerald-900 dark:text-emerald-200",
+							children: "4,820,000 د.ع"
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "mt-1 block text-[10px] text-emerald-700 dark:text-emerald-300",
+							children: "تمت تسوية هذا الأسبوع"
+						})
+					]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center justify-between rounded-xl bg-slate-50 p-3 text-[11px] dark:bg-slate-800/60",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "font-black text-emerald-600",
+					children: "92%"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "text-slate-500",
+					children: "نسبة تحصيل الطلبات المسلّمة"
+				})]
+			})
+		]
+	});
+}
+var salesByHour = [
+	18,
+	26,
+	34,
+	48,
+	42,
+	67,
+	82,
+	58,
+	39,
+	31,
+	24,
+	18
+];
+var topProducts = [
+	{
+		name: "آيفون 15 برو ماكس",
+		value: 82
+	},
+	{
+		name: "حذاء نايكي اير فورس",
+		value: 64
+	},
+	{
+		name: "إكسسوارات رياضية",
+		value: 41
+	}
+];
+function SellerAnalytics() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "space-y-4 rounded-3xl border border-emerald-100 bg-white p-4 shadow-sm dark:border-emerald-950/50 dark:bg-slate-900",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "flex items-center justify-between",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+				className: "flex items-center gap-1 text-[10px] font-black text-emerald-600",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(TrendingUp, { size: 14 }), " +18.4% هذا الأسبوع"]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
+				className: "flex items-center gap-2 text-sm font-black",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChartColumn, {
+					size: 18,
+					className: "text-emerald-500"
+				}), " تحليلات المبيعات"]
+			})]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "grid gap-4 lg:grid-cols-[1.2fr_0.8fr]",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "rounded-2xl bg-slate-50 p-4 dark:bg-slate-800/60",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mb-4 flex items-center justify-between text-[10px] text-slate-400",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "12:00 - 23:00" }), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", {
+						className: "text-slate-700 dark:text-slate-200",
+						children: "أوقات ذروة المبيعات"
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "flex h-40 items-end gap-2",
+					children: salesByHour.map((height, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "flex flex-1 flex-col items-center gap-1",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+							className: "w-full rounded-t-lg bg-emerald-500/80 transition hover:bg-emerald-400",
+							style: { height: `${height}%` },
+							title: `${height} طلب`
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "text-[8px] text-slate-400",
+							children: index + 12
+						})]
+					}, index))
+				})]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "space-y-3 rounded-2xl border border-slate-100 p-4 dark:border-slate-800",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+					className: "text-xs font-black",
+					children: "الأكثر طلباً هذا الأسبوع"
+				}), topProducts.map((product, index) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "mb-1 flex justify-between text-[10px]",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "font-black text-emerald-600",
+						children: [product.value, " طلب"]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+						className: "truncate",
+						children: [
+							index + 1,
+							". ",
+							product.name
+						]
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "h-2 rounded-full bg-slate-100 dark:bg-slate-800",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "h-2 rounded-full bg-emerald-500",
+						style: { width: `${product.value}%` }
+					})
+				})] }, product.name))]
+			})]
+		})]
+	});
+}
+function BulkOperations() {
+	const inputRef = (0, import_react.useRef)(null);
+	const [fileName, setFileName] = (0, import_react.useState)("");
+	const exportCsv = () => {
+		const blob = new Blob(["﻿sku,name,quantity,selling_price\nNK-AF-43-BLK,حذاء نايكي,24,90000\nIP15-PM-256,آيفون 15 برو,4,1450000"], { type: "text/csv;charset=utf-8" });
+		const url = URL.createObjectURL(blob);
+		const link = document.createElement("a");
+		link.href = url;
+		link.download = "salix-inventory.csv";
+		link.click();
+		URL.revokeObjectURL(url);
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+		className: "space-y-4 rounded-3xl border border-emerald-100 bg-white p-4 shadow-sm dark:border-emerald-950/50 dark:bg-slate-900",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex items-center justify-between",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					className: "text-[10px] text-slate-400",
+					children: "CSV متوافق مع Excel"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h2", {
+					className: "flex items-center gap-2 text-sm font-black",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FileSpreadsheet, {
+						size: 18,
+						className: "text-emerald-500"
+					}), " استيراد وتصدير جماعي"]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "grid gap-3 sm:grid-cols-2",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					onClick: () => inputRef.current?.click(),
+					className: "flex min-h-24 flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-emerald-200 bg-emerald-50/60 text-xs font-black text-emerald-700 dark:border-emerald-900 dark:bg-emerald-950/20 dark:text-emerald-300",
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Upload, { size: 20 }),
+						" رفع ملف المخزون",
+						fileName && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							className: "text-[10px] font-normal",
+							children: fileName
+						})
+					]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					type: "button",
+					onClick: exportCsv,
+					className: "flex min-h-24 flex-col items-center justify-center gap-2 rounded-2xl border border-slate-200 bg-slate-50 text-xs font-black text-slate-700 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Download, { size: 20 }), " تصدير قالب CSV"]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+				ref: inputRef,
+				type: "file",
+				accept: ".csv,text/csv",
+				className: "hidden",
+				onChange: (event) => setFileName(event.target.files?.[0]?.name ?? "")
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+				className: "text-[10px] leading-5 text-slate-400",
+				children: "استخدم الأعمدة: SKU، الاسم، الكمية، وسعر البيع. راجع الملف قبل اعتماده لتفادي تغيير جماعي غير مقصود."
+			})
+		]
+	});
+}
+function ProfileScreen({ accountMode = "personal", onEnterSellerMode, onExitSellerMode, onAddToCart }) {
 	const [showQrModal, setShowQrModal] = (0, import_react.useState)(false);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 		className: "space-y-4 pb-20 text-right",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "flex rounded-2xl bg-slate-200/70 p-1 dark:bg-slate-800/80",
-				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-					onClick: () => setAccountMode("personal"),
-					className: `flex-1 rounded-xl py-2 text-xs font-black transition ${accountMode === "personal" ? "bg-white text-emerald-600 shadow-md dark:bg-slate-900 dark:text-emerald-400" : "text-slate-600 dark:text-slate-400"}`,
-					children: "👤 حساب شخصي (مشتري)"
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-					onClick: () => setAccountMode("seller"),
-					className: `flex-1 rounded-xl py-2 text-xs font-black transition ${accountMode === "seller" ? "bg-white text-emerald-600 shadow-md dark:bg-slate-900 dark:text-emerald-400" : "text-slate-600 dark:text-slate-400"}`,
-					children: "🏪 متجري (بائع)"
+				className: "flex items-center justify-between rounded-2xl border border-emerald-100 bg-white p-3 shadow-sm dark:border-emerald-950/50 dark:bg-slate-900",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+					onClick: accountMode === "seller" ? onExitSellerMode : onEnterSellerMode,
+					className: "flex items-center gap-2 rounded-xl bg-emerald-500 px-3 py-2 text-[11px] font-black text-white shadow-sm transition hover:bg-emerald-600",
+					children: [accountMode === "seller" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(User, { size: 14 }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Store, { size: 14 }), accountMode === "seller" ? "العودة للتسوق" : "فتح لوحة التاجر"]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "text-right",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-[10px] font-bold text-slate-400",
+						children: "مساحة العمل الحالية"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-xs font-black text-slate-800 dark:text-white",
+						children: accountMode === "seller" ? "إدارة المتجر" : "الحساب الشخصي"
+					})]
 				})]
 			}),
+			false,
 			accountMode === "personal" ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 				className: "relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-600 via-teal-600 to-emerald-800 p-5 text-white shadow-xl",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
@@ -2351,7 +3166,7 @@ function ProfileScreen() {
 					})]
 				})]
 			}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "relative overflow-hidden rounded-3xl bg-slate-900 p-5 text-white shadow-xl",
+				className: "relative overflow-hidden rounded-3xl border border-emerald-100 bg-emerald-50 p-5 text-slate-900 shadow-sm dark:border-emerald-950/50 dark:bg-emerald-950/20 dark:text-white",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 					className: "flex items-start justify-between",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
@@ -2365,7 +3180,7 @@ function ProfileScreen() {
 								className: "text-base font-black",
 								children: "متجر بغداد الرقمي"
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								className: "text-[11px] text-slate-400",
+								className: "text-[11px] text-slate-500 dark:text-slate-300",
 								children: "1.2K مبيعات • 98% تقييم إيجابي"
 							})]
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
@@ -2374,10 +3189,10 @@ function ProfileScreen() {
 						})]
 					})]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					className: "mt-4 grid grid-cols-3 gap-2 border-t border-slate-800 pt-3 text-center",
+					className: "mt-4 grid grid-cols-3 gap-2 border-t border-emerald-200 pt-3 text-center dark:border-emerald-900",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "text-[10px] text-slate-400",
+							className: "text-[10px] text-slate-500 dark:text-slate-300",
 							children: "الطلبات اليوم"
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
 							className: "text-sm font-black text-emerald-400",
@@ -2387,14 +3202,14 @@ function ProfileScreen() {
 							className: "text-[10px] text-slate-400",
 							children: "وقت الرد"
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-sm font-black text-slate-200",
+							className: "text-sm font-black text-slate-700 dark:text-slate-100",
 							children: "5 دقائق"
 						})] }),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-							className: "text-[10px] text-slate-400",
+							className: "text-[10px] text-slate-500 dark:text-slate-300",
 							children: "المنتجات النشطة"
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							className: "text-sm font-black text-slate-200",
+							className: "text-sm font-black text-slate-700 dark:text-slate-100",
 							children: "42"
 						})] })
 					]
@@ -2506,10 +3321,20 @@ function ProfileScreen() {
 					})
 				]
 			})] }) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				className: "space-y-3",
+				className: "grid gap-4 space-y-0 xl:grid-cols-2",
 				children: [
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "xl:col-span-2",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(OrderPipeline, {})
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CodLedger, {}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SellerAnalytics, {}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "xl:col-span-2",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BulkOperations, {})
+					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(InventoryManager, {}),
-					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MerchantAiAssistant, {}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MerchantAiAssistant, { onAddToCart }),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 						className: "grid grid-cols-2 gap-2",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
@@ -2530,7 +3355,7 @@ function ProfileScreen() {
 						})]
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						className: "rounded-3xl border border-slate-100 bg-white p-2 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-1",
+						className: "xl:col-span-2 rounded-3xl border border-slate-100 bg-white p-2 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-1",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
 							className: "flex w-full items-center justify-between rounded-2xl p-3 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronLeft, {
@@ -2624,6 +3449,284 @@ function ProfileScreen() {
 		]
 	});
 }
+function cn(...inputs) {
+	return twMerge(clsx(inputs));
+}
+var buttonVariants = cva("inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium cursor-pointer transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 disabled:cursor-not-allowed [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0", {
+	variants: {
+		variant: {
+			default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
+			destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
+			outline: "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
+			secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+			ghost: "hover:bg-accent hover:text-accent-foreground",
+			link: "text-primary underline-offset-4 hover:underline"
+		},
+		size: {
+			default: "h-9 px-4 py-2",
+			sm: "h-8 rounded-md px-3 text-xs",
+			lg: "h-10 rounded-md px-8",
+			icon: "h-9 w-9"
+		}
+	},
+	defaultVariants: {
+		variant: "default",
+		size: "default"
+	}
+});
+var Button = import_react.forwardRef(({ className, variant, size, asChild = false, ...props }, ref) => {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(asChild ? Slot : "button", {
+		className: cn(buttonVariants({
+			variant,
+			size,
+			className
+		})),
+		ref,
+		...props
+	});
+});
+Button.displayName = "Button";
+var lovableAuth = createLovableAuth();
+var lovable = { auth: { signInWithOAuth: async (provider, opts) => {
+	const result = await lovableAuth.signInWithOAuth(provider, {
+		...opts,
+		extraParams: { ...opts?.extraParams }
+	});
+	if (result.redirected) return result;
+	if (result.error) return result;
+	try {
+		await supabase.auth.setSession(result.tokens);
+	} catch (e) {
+		return { error: e instanceof Error ? e : new Error(String(e)) };
+	}
+	return result;
+} } };
+function AuthScreen() {
+	const [mode, setMode] = (0, import_react.useState)("login");
+	const [name, setName] = (0, import_react.useState)("");
+	const [email, setEmail] = (0, import_react.useState)("");
+	const [password, setPassword] = (0, import_react.useState)("");
+	const [showPassword, setShowPassword] = (0, import_react.useState)(false);
+	const [busy, setBusy] = (0, import_react.useState)(false);
+	const [error, setError] = (0, import_react.useState)(null);
+	const submit = async (event) => {
+		event.preventDefault();
+		setBusy(true);
+		setError(null);
+		try {
+			if (mode === "signup") {
+				const { error: signUpError } = await supabase.auth.signUp({
+					email: email.trim(),
+					password,
+					options: {
+						emailRedirectTo: window.location.origin,
+						data: { display_name: name.trim() || email.split("@")[0] }
+					}
+				});
+				if (signUpError) throw signUpError;
+			} else {
+				const { error: signInError } = await supabase.auth.signInWithPassword({
+					email: email.trim(),
+					password
+				});
+				if (signInError) throw signInError;
+			}
+		} catch (caught) {
+			const message = caught instanceof Error ? caught.message : "حدث خطأ غير متوقع";
+			setError(/invalid login/i.test(message) ? "البريد الإلكتروني أو كلمة المرور غير صحيحة" : /already registered|already been/i.test(message) ? "هذا البريد مسجّل مسبقاً، جرّب تسجيل الدخول" : /password/i.test(message) ? "كلمة المرور يجب أن تكون 6 أحرف على الأقل" : message);
+		} finally {
+			setBusy(false);
+		}
+	};
+	const googleSignIn = async () => {
+		setBusy(true);
+		setError(null);
+		const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
+		if (result.error) {
+			setError("تعذّر الدخول عبر جوجل، حاول مرة أخرى");
+			setBusy(false);
+			return;
+		}
+		if (result.redirected) return;
+		setBusy(false);
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		dir: "rtl",
+		className: "flex min-h-screen flex-col items-center justify-between bg-background px-6 py-10 text-foreground selection:bg-primary/20",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "w-full max-w-sm flex-1 flex flex-col justify-center space-y-8 my-auto",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				className: "flex flex-col items-center text-center space-y-3",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10 text-primary transition-transform hover:scale-105",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
+						xmlns: "http://www.w3.org/2000/svg",
+						width: "34",
+						height: "34",
+						viewBox: "0 0 24 24",
+						fill: "none",
+						stroke: "currentColor",
+						strokeWidth: "2.2",
+						strokeLinecap: "round",
+						strokeLinejoin: "round",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "M2 7h20" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", { d: "M22 7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2" })
+						]
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					className: "space-y-1",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+						className: "text-3xl font-black tracking-tight text-foreground",
+						children: "صفصاف"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+						className: "text-sm font-medium text-muted-foreground",
+						children: "Salix · تجارتك الاجتماعية بذكاء"
+					})]
+				})]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
+				onSubmit: submit,
+				className: "space-y-3.5 w-full",
+				children: [
+					mode === "signup" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "relative flex items-center",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(UserRound, {
+							size: 18,
+							className: "absolute right-3.5 text-muted-foreground/70 pointer-events-none"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+							value: name,
+							onChange: (e) => setName(e.target.value),
+							placeholder: "الاسم الكامل",
+							className: "w-full rounded-2xl border border-input bg-background/50 py-3.5 pr-10 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20",
+							autoComplete: "name"
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "relative flex items-center",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mail, {
+							size: 18,
+							className: "absolute right-3.5 text-muted-foreground/70 pointer-events-none"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+							value: email,
+							onChange: (e) => setEmail(e.target.value),
+							type: "email",
+							required: true,
+							placeholder: "البريد الإلكتروني",
+							className: "w-full rounded-2xl border border-input bg-background/50 py-3.5 pr-10 pl-4 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20",
+							autoComplete: "email",
+							dir: "ltr"
+						})]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "relative flex items-center",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Lock, {
+								size: 18,
+								className: "absolute right-3.5 text-muted-foreground/70 pointer-events-none"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("input", {
+								value: password,
+								onChange: (e) => setPassword(e.target.value),
+								type: showPassword ? "text" : "password",
+								required: true,
+								minLength: 6,
+								placeholder: "كلمة المرور",
+								className: "w-full rounded-2xl border border-input bg-background/50 py-3.5 pr-10 pl-11 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20",
+								autoComplete: mode === "login" ? "current-password" : "new-password",
+								dir: "ltr"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+								type: "button",
+								onClick: () => setShowPassword(!showPassword),
+								className: "absolute left-3.5 text-muted-foreground/70 hover:text-foreground transition",
+								tabIndex: -1,
+								children: showPassword ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(EyeOff, { size: 18 }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Eye, { size: 18 })
+							})
+						]
+					}),
+					error && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						className: "rounded-xl bg-destructive/10 p-3 text-center text-xs font-semibold text-destructive",
+						children: error
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						type: "submit",
+						size: "lg",
+						disabled: busy,
+						className: "h-12 w-full rounded-2xl text-base font-bold shadow-sm transition-all active:scale-[0.99]",
+						children: [busy && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, { className: "animate-spin ml-2" }), mode === "login" ? "تسجيل الدخول" : "إنشاء الحساب"]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						className: "pt-1 flex items-center gap-3 text-xs text-muted-foreground/60",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px flex-1 bg-border/80" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { children: "أو" }),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: "h-px flex-1 bg-border/80" })
+						]
+					}),
+					/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+						type: "button",
+						variant: "outline",
+						size: "lg",
+						disabled: busy,
+						onClick: googleSignIn,
+						className: "h-12 w-full rounded-2xl text-sm font-semibold gap-2 border-input bg-background hover:bg-accent hover:text-accent-foreground",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("svg", {
+							viewBox: "0 0 24 24",
+							width: "18",
+							height: "18",
+							"aria-hidden": "true",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
+									fill: "#4285F4",
+									d: "M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.4a5.5 5.5 0 0 1-2.4 3.6v3h3.9c2.3-2.1 3.6-5.2 3.6-8.8z"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
+									fill: "#34A853",
+									d: "M12 24c3.2 0 5.9-1.1 7.9-2.9l-3.9-3a7.2 7.2 0 0 1-10.7-3.8H1.3v3.1A12 12 0 0 0 12 24z"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
+									fill: "#FBBC05",
+									d: "M5.3 14.3a7.2 7.2 0 0 1 0-4.6V6.6H1.3a12 12 0 0 0 0 10.8l4-3.1z"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("path", {
+									fill: "#EA4335",
+									d: "M12 4.8c1.8 0 3.4.6 4.6 1.8l3.4-3.4A12 12 0 0 0 1.3 6.6l4 3.1A7.2 7.2 0 0 1 12 4.8z"
+								})
+							]
+						}), "المتابعة عبر جوجل"]
+					})
+				]
+			})]
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			className: "w-full max-w-sm pt-4",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+				type: "button",
+				variant: "outline",
+				onClick: () => {
+					setError(null);
+					setMode(mode === "login" ? "signup" : "login");
+				},
+				className: "h-12 w-full rounded-2xl text-sm font-bold border-primary/30 text-primary hover:bg-primary/5 transition-all",
+				children: mode === "login" ? "إنشاء حساب جديد" : "لديك حساب بالفعل؟ تسجيل الدخول"
+			})
+		})]
+	});
+}
+var Toaster$1 = ({ ...props }) => {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toaster, {
+		className: "toaster group",
+		toastOptions: { classNames: {
+			toast: "group toast group-[.toaster]:bg-background group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
+			description: "group-[.toast]:text-muted-foreground",
+			actionButton: "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
+			cancelButton: "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground"
+		} },
+		...props
+	});
+};
 var MOCK_CONVERSATIONS = [{
 	id: "c1",
 	storeId: "1",
@@ -2691,9 +3794,13 @@ var MOCK_CONVERSATIONS = [{
 }];
 var Route = createFileRoute("/")({ component: IndexPage });
 function IndexPage() {
+	const [session, setSession] = (0, import_react.useState)(null);
+	const [authReady, setAuthReady] = (0, import_react.useState)(false);
+	const [authError, setAuthError] = (0, import_react.useState)(null);
 	const [activeTab, setActiveTab] = (0, import_react.useState)("home");
 	const [selectedCategory, setSelectedCategory] = (0, import_react.useState)("all");
 	const [searchQuery, setSearchQuery] = (0, import_react.useState)("");
+	const [isSellerMode, setIsSellerMode] = (0, import_react.useState)(false);
 	const [isMenuOpen, setIsMenuOpen] = (0, import_react.useState)(false);
 	const [isCartOpen, setIsCartOpen] = (0, import_react.useState)(false);
 	const [isNotificationsOpen, setIsNotificationsOpen] = (0, import_react.useState)(false);
@@ -2702,36 +3809,56 @@ function IndexPage() {
 	const [activeConversation, setActiveConversation] = (0, import_react.useState)(null);
 	const [cartItems, setCartItems] = (0, import_react.useState)([]);
 	const [notifications, setNotifications] = (0, import_react.useState)(MOCK_NOTIFICATIONS);
-	const handleAddToCart = (product) => {
-		setCartItems((prev) => {
-			if (prev.find((item) => item.id === product.id)) return prev.map((item) => item.id === product.id ? {
-				...item,
-				quantity: item.quantity + 1
-			} : item);
-			return [...prev, {
-				...product,
-				quantity: 1
-			}];
+	(0, import_react.useEffect)(() => {
+		let mounted = true;
+		supabase.auth.getSession().then(({ data, error }) => {
+			if (!mounted) return;
+			if (error) setAuthError("تعذر الاتصال بخدمة تسجيل الدخول. حاول تحديث الصفحة.");
+			setSession(data.session);
+			setAuthReady(true);
+		}).catch(() => {
+			if (!mounted) return;
+			setAuthError("تعذر الاتصال بخدمة تسجيل الدخول. حاول تحديث الصفحة.");
+			setAuthReady(true);
 		});
-	};
-	const handleUpdateQuantity = (id, delta) => {
-		setCartItems((prev) => prev.map((item) => {
-			if (item.id === id) {
-				const newQty = item.quantity + delta;
-				return newQty > 0 ? {
-					...item,
-					quantity: newQty
-				} : null;
-			}
-			return item;
-		}).filter(Boolean));
-	};
+		const { data: listener } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+			setSession(nextSession);
+			setAuthReady(true);
+		});
+		return () => {
+			mounted = false;
+			listener.subscription.unsubscribe();
+		};
+	}, []);
+	const addToCart = (product) => setCartItems((current) => {
+		return current.find((item) => item.id === product.id) ? current.map((item) => item.id === product.id ? {
+			...item,
+			quantity: item.quantity + 1
+		} : item) : [...current, {
+			...product,
+			quantity: 1
+		}];
+	});
+	const updateCartQuantity = (id, delta) => setCartItems((current) => current.map((item) => item.id === id ? {
+		...item,
+		quantity: item.quantity + delta
+	} : item).filter((item) => item.quantity > 0));
+	const openStore = (store) => setActiveStore(store);
+	if (!authReady) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		className: "grid min-h-screen place-items-center bg-background text-sm text-muted-foreground",
+		children: "جارٍ تجهيز صفصاف..."
+	});
+	if (authError && !session) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthConnectionError, {
+		message: authError,
+		onRetry: () => window.location.reload()
+	});
+	if (!session) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(AuthScreen, {});
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		className: "min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-white pb-16",
+		className: "min-h-screen bg-slate-50 pb-16 text-slate-900 dark:bg-slate-950 dark:text-white",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Header, {
-				cartCount: cartItems.reduce((acc, item) => acc + item.quantity, 0),
-				unreadNotificationsCount: notifications.filter((n) => !n.read).length,
+				cartCount: cartItems.reduce((sum, item) => sum + item.quantity, 0),
+				unreadNotificationsCount: notifications.filter((item) => !item.read).length,
 				searchQuery,
 				onSearchChange: setSearchQuery,
 				onOpenCart: () => setIsCartOpen(true),
@@ -2739,46 +3866,41 @@ function IndexPage() {
 				onOpenMenu: () => setIsMenuOpen(true)
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("main", {
-				className: "mx-auto max-w-5xl px-4 py-4 space-y-4",
+				className: "mx-auto max-w-7xl space-y-4 px-4 py-4",
 				children: [
-					activeTab === "home" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HomeScreen, {
+					!isSellerMode && activeTab === "home" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(HomeScreen, {
 						products: MOCK_PRODUCTS,
 						stores: MOCK_STORES,
 						stories: MOCK_STORIES,
 						selectedCategory,
 						onSelectCategory: setSelectedCategory,
 						onSelectStory: setActiveStory,
-						onSelectProduct: (p) => {
-							const store = MOCK_STORES.find((s) => s.name === p.seller_name);
-							if (store) setActiveStore(store);
-						},
-						onSelectStore: setActiveStore,
-						onAddToCart: handleAddToCart
+						onSelectProduct: (product) => openStore(MOCK_STORES.find((store) => store.name === product.seller_name) ?? MOCK_STORES[0]),
+						onSelectStore: openStore,
+						onAddToCart: addToCart
 					}),
-					activeTab === "stores" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+					!isSellerMode && activeTab === "stores" && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
 						className: "space-y-3 text-right",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
 							className: "text-base font-black",
 							children: "المتاجر المعتمدة"
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							className: "grid grid-cols-1 gap-3 sm:grid-cols-2",
-							children: MOCK_STORES.map((store) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
-								onClick: () => setActiveStore(store),
-								className: "flex items-center justify-between rounded-3xl border border-slate-100 bg-white p-4 text-right shadow-sm dark:border-slate-800 dark:bg-slate-900",
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									className: "flex items-center gap-3",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-										src: store.avatar,
-										alt: store.name,
-										className: "size-14 rounded-full object-cover border-2 border-emerald-500"
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-										className: "text-xs font-black",
-										children: store.name
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										className: "text-[10px] text-slate-400 mt-1",
-										children: store.bio
-									})] })]
-								})
+							className: "grid gap-3 sm:grid-cols-2",
+							children: MOCK_STORES.map((store) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("button", {
+								type: "button",
+								onClick: () => openStore(store),
+								className: "flex items-center gap-3 rounded-3xl border border-slate-100 bg-white p-4 text-right shadow-sm dark:border-slate-800 dark:bg-slate-900",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+									src: store.avatar,
+									alt: store.name,
+									className: "size-14 rounded-full border-2 border-emerald-500 object-cover"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+									className: "text-xs font-black",
+									children: store.name
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									className: "mt-1 text-[10px] text-slate-400",
+									children: store.bio
+								})] })]
 							}, store.id))
 						})]
 					}),
@@ -2786,12 +3908,39 @@ function IndexPage() {
 						conversations: MOCK_CONVERSATIONS,
 						onSelectConversation: setActiveConversation
 					}),
-					activeTab === "profile" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ProfileScreen, {})
+					!isSellerMode && activeTab === "profile" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ProfileScreen, {
+						accountMode: "personal",
+						onEnterSellerMode: () => {
+							setIsSellerMode(true);
+							setActiveTab("seller-dashboard");
+						},
+						onAddToCart: addToCart
+					}),
+					isSellerMode && activeTab === "seller-dashboard" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ProfileScreen, {
+						accountMode: "seller",
+						onExitSellerMode: () => {
+							setIsSellerMode(false);
+							setActiveTab("profile");
+						},
+						onAddToCart: addToCart
+					}),
+					isSellerMode && activeTab === "seller-orders" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SellerPlaceholder, {
+						title: "الطلبات الواردة",
+						description: "تابع الطلبات عبر خط التجميع من الجديد حتى المكتمل.",
+						icon: ClipboardList
+					}),
+					isSellerMode && activeTab === "seller-inventory" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(InventoryManager, {}),
+					isSellerMode && activeTab === "seller-analytics" && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SellerPlaceholder, {
+						title: "تحليلات المبيعات",
+						description: "افتح لوحة المتجر لرؤية الذروة والمنتجات الأكثر طلباً.",
+						icon: ChartColumn
+					})
 				]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(BottomNavigation, {
 				activeTab,
-				unreadChatCount: MOCK_CONVERSATIONS.reduce((acc, c) => acc + c.unreadCount, 0),
+				unreadChatCount: MOCK_CONVERSATIONS.reduce((sum, item) => sum + item.unreadCount, 0),
+				isSellerMode,
 				onTabChange: setActiveTab
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MobileMenuDrawer, {
@@ -2799,46 +3948,105 @@ function IndexPage() {
 				onClose: () => setIsMenuOpen(false),
 				onNavigateTab: (tab) => {
 					setActiveTab(tab);
+					setIsMenuOpen(false);
 				}
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CartDrawer, {
 				isOpen: isCartOpen,
 				items: cartItems,
 				onClose: () => setIsCartOpen(false),
-				onUpdateQuantity: handleUpdateQuantity
+				onUpdateQuantity: updateCartQuantity,
+				onContinueShopping: () => {
+					setIsCartOpen(false);
+					setActiveTab("home");
+				}
 			}),
 			isNotificationsOpen && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NotificationsDrawer, {
 				notifications,
 				onClose: () => setIsNotificationsOpen(false),
-				onMarkAllRead: () => setNotifications((prev) => prev.map((n) => ({
-					...n,
+				onMarkAllRead: () => setNotifications((current) => current.map((item) => ({
+					...item,
 					read: true
 				})))
 			}),
 			activeStory && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StoryViewerModal, {
 				story: activeStory,
+				products: MOCK_PRODUCTS,
+				onAddToCart: addToCart,
 				onClose: () => setActiveStory(null),
 				onOpenStore: (storeId) => {
-					const store = MOCK_STORES.find((s) => s.id === storeId);
-					if (store) setActiveStore(store);
+					const store = MOCK_STORES.find((item) => item.id === storeId);
+					if (store) openStore(store);
 				}
 			}),
 			activeStore && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(StoreProfileModal, {
 				store: activeStore,
 				products: MOCK_PRODUCTS,
 				onClose: () => setActiveStore(null),
-				onOpenProduct: () => {},
-				onAddToCart: handleAddToCart
+				onOpenProduct: () => void 0,
+				onAddToCart: addToCart
 			}),
 			activeConversation && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChatRoom, {
 				conversation: activeConversation,
+				products: MOCK_PRODUCTS,
 				onBack: () => setActiveConversation(null),
 				onOpenStore: (storeId) => {
-					const store = MOCK_STORES.find((s) => s.id === storeId);
-					if (store) setActiveStore(store);
+					const store = MOCK_STORES.find((item) => item.id === storeId);
+					if (store) openStore(store);
 				}
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toaster$1, {
+				position: "top-center",
+				richColors: true
 			})
 		]
+	});
+}
+function SellerPlaceholder({ title, description, icon: Icon }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		className: "grid min-h-72 place-items-center rounded-3xl border border-emerald-100 bg-white p-8 text-center shadow-sm dark:border-emerald-950/50 dark:bg-slate-900",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-sm",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					className: "mx-auto grid size-14 place-items-center rounded-2xl bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-300",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, { size: 26 })
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+					className: "mt-4 text-lg font-black",
+					children: title
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-xs leading-6 text-slate-500 dark:text-slate-400",
+					children: description
+				})
+			]
+		})
+	});
+}
+function AuthConnectionError({ message, onRetry }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		dir: "rtl",
+		className: "grid min-h-screen place-items-center bg-background px-6 text-center",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			className: "max-w-sm",
+			children: [
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+					className: "text-xl font-black text-foreground",
+					children: "تعذر فتح تسجيل الدخول"
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+					className: "mt-2 text-xs leading-6 text-muted-foreground",
+					children: message
+				}),
+				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("button", {
+					type: "button",
+					onClick: onRetry,
+					className: "mt-5 rounded-2xl bg-primary px-5 py-3 text-xs font-black text-primary-foreground",
+					children: "إعادة المحاولة"
+				})
+			]
+		})
 	});
 }
 var rootRouteChildren = { IndexRoute: Route.update({
@@ -2848,9 +4056,10 @@ var rootRouteChildren = { IndexRoute: Route.update({
 }) };
 var routeTree = Route$1._addFileChildren(rootRouteChildren)._addFileTypes();
 var getRouter = () => {
+	const queryClient = new QueryClient();
 	return createRouter({
 		routeTree,
-		context: { queryClient: new QueryClient() },
+		context: { queryClient },
 		scrollRestoration: true,
 		defaultPreloadStaleTime: 0
 	});

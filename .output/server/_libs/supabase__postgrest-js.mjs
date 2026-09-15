@@ -1,4 +1,4 @@
-//#region node_modules/.pnpm/@supabase+postgrest-js@2.116.0/node_modules/@supabase/postgrest-js/dist/index.mjs
+//#region node_modules/@supabase/postgrest-js/dist/index.mjs
 /**
 * Error format
 *
