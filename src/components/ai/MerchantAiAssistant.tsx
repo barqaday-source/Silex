@@ -18,6 +18,8 @@ import {
   X,
 } from "lucide-react";
 import { MOCK_PRODUCTS } from "@/data/mock";
+import { answerFromStoreData, buildStoreRagData } from "@/services/ai/storeAssistant";
+import type { Product } from "@/types";
 
 type AssistantMode = "friendly" | "formal" | "concise" | "store";
 type KnowledgeTab = "knowledge" | "permissions" | "faq";
@@ -34,6 +36,7 @@ type ChatMessage = {
   sender: "customer" | "ai" | "human";
   text: string;
   productId?: string;
+  widgetProductId?: string;
 };
 
 const permissionLabels: Record<PermissionKey, string> = {
@@ -54,7 +57,7 @@ const initialPermissions: Record<PermissionKey, boolean> = {
   faq: true,
 };
 
-export function MerchantAiAssistant() {
+export function MerchantAiAssistant({ onAddToCart }: { onAddToCart?: (product: Product) => void }) {
   const [isEnabled, setIsEnabled] = useState(true);
   const [isAfterHoursEnabled, setIsAfterHoursEnabled] = useState(true);
   const [isSuggestionsEnabled, setIsSuggestionsEnabled] = useState(true);
@@ -76,11 +79,13 @@ export function MerchantAiAssistant() {
       text: "هلا بيك 🌷 نعم، أفحص المنتجات والمخزون الفعلي حتى أرشح لك الأنسب.",
     },
   ]);
+  const [handoffReason, setHandoffReason] = useState<string | null>(null);
 
   const availableProducts = useMemo(
     () => MOCK_PRODUCTS.filter((product) => product.in_stock),
     [],
   );
+  const storeData = useMemo(() => buildStoreRagData(availableProducts), [availableProducts]);
 
   const togglePermission = (key: PermissionKey) => {
     setPermissions((current) => ({ ...current, [key]: !current[key] }));
@@ -110,23 +115,18 @@ export function MerchantAiAssistant() {
       return;
     }
 
-    const matchedProduct = availableProducts.find((product) => {
-      const firstWord = product.name.toLowerCase().split(" ")[0] ?? "";
-      return firstWord.length > 0 && text.toLowerCase().includes(firstWord);
-    });
-    const product = matchedProduct ?? availableProducts[0];
-    const response = product && permissions.inventory
-      ? `أكيد، ${product.name} متوفر حاليًا بسعر ${product.price.toLocaleString("ar-IQ")} د.ع. أقدر أعرضه لك أو أضيفه للسلة بعد تأكيدك.`
-      : permissions.faq
-        ? "هلا بيك، أقدر أساعدك بالمنتجات والأسعار والتوصيل. اختر أحد الاقتراحات أو حوّل المحادثة لموظف المتجر."
-        : "سأحوّل سؤالك لموظف المتجر حتى تحصل على إجابة دقيقة.";
+    const answer = answerFromStoreData(storeData, text);
+    if (answer.action === "TRANSFER_TO_HUMAN") setHandoffReason("تم إيقاف الرد الآلي بسبب طلب تدخل بشري أو انخفاض الثقة.");
 
     const aiMessage: ChatMessage = {
       id: Date.now() + 1,
       sender: "ai",
-      text: response,
+      text: answer.text_response,
     };
-    if (product) aiMessage.productId = product.id;
+    if (answer.widget) {
+      aiMessage.productId = answer.widget.data.id;
+      aiMessage.widgetProductId = answer.widget.data.id;
+    }
     setMessages((current) => [...current, aiMessage]);
   };
 
@@ -150,11 +150,12 @@ export function MerchantAiAssistant() {
             <Bot size={21} />
           </div>
           <div>
-            <h3 className="text-sm font-black">مساعد المتجر الذكي</h3>
-            <p className="text-[10px] text-slate-400">AI Store Assistant</p>
+            <h3 className="text-sm font-black">مساعد صفصاف الذكي</h3>
+            <p className="text-[10px] text-slate-400">Salix AI Assistant · SELX</p>
           </div>
         </div>
       </div>
+      {handoffReason && <div className="flex items-start gap-2 rounded-2xl border border-amber-200 bg-amber-50 p-3 text-[10px] font-bold text-amber-800 dark:border-amber-900/50 dark:bg-amber-950/20 dark:text-amber-200"><UserRound size={15} className="mt-0.5 shrink-0" /><span>{handoffReason} تم تنبيه التاجر ليتابع المحادثة.</span></div>}
 
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         <Metric label="المحادثات اليوم" value="428" icon={MessageCircle} />
@@ -271,11 +272,7 @@ export function MerchantAiAssistant() {
                     : "bg-emerald-500 text-white"
               }`}>
                 <p>{message.text}</p>
-                {message.productId && (
-                  <div className="mt-2 flex items-center gap-2 rounded-xl bg-white/15 p-2 text-[10px]">
-                    <Package size={13} /> تحقق من المنتج والمخزون قبل الإضافة
-                  </div>
-                )}
+                {message.widgetProductId && (() => { const product = availableProducts.find((item) => item.id === message.widgetProductId); return product ? <div className="mt-2 overflow-hidden rounded-xl bg-white/15 p-2 text-[10px]"><img src={product.image_url} alt={product.name} className="mb-2 aspect-video w-full rounded-lg object-cover" /><div className="flex items-center justify-between gap-2"><span className="truncate font-black">{product.name}</span><button type="button" onClick={() => onAddToCart?.(product)} className="shrink-0 rounded-lg bg-white px-2 py-1 font-black text-emerald-700">إضافة للسلة</button></div></div> : null; })()}
               </div>
             </div>
           ))}

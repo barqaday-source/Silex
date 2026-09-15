@@ -99,7 +99,7 @@ export function AuthScreen() {
       {/* المحتوى الرئيسي */}
       <div className="w-full max-w-sm flex-1 flex flex-col justify-center space-y-6 my-auto">
         
-        {/* الشعار المجرد والاسم بالإنجليزية TAJER */}
+        {/* هوية سيلكس */}
         <div className="flex flex-col items-center text-center space-y-3">
           <div className="text-primary transition-transform duration-300 hover:scale-105">
             <svg width="48" height="48" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -109,7 +109,7 @@ export function AuthScreen() {
             </svg>
           </div>
           <h1 className="text-2xl font-black tracking-widest text-foreground uppercase">
-            TAJER
+            SALIX
           </h1>
         </div>
 

@@ -36,7 +36,7 @@ export function Header({
             S
           </div>
           <span className="text-base font-black tracking-tight text-slate-900 dark:text-white">
-            السوق <span className="text-emerald-500">الذكي</span>
+            صفصاف <span className="text-emerald-500">Salix</span>
           </span>
         </div>
 

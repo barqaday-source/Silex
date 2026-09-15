@@ -6,8 +6,8 @@ export const MOCK_STORES: Store[] = [
 ];
 
 export const MOCK_STORIES: Story[] = [
-  { id: "s1", storeId: "1", storeName: "بغداد سبورت", storeAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150", mediaUrl: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600", createdAt: "قبل 15 دقيقة" },
-  { id: "s2", storeId: "2", storeName: "المنصور تِك", storeAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150", mediaUrl: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600", createdAt: "قبل ساعة" },
+  { id: "s1", storeId: "1", storeName: "بغداد سبورت", storeAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150", mediaUrl: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600", createdAt: "قبل 15 دقيقة", productId: "p1" },
+  { id: "s2", storeId: "2", storeName: "المنصور تِك", storeAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150", mediaUrl: "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=600", createdAt: "قبل ساعة", productId: "p2" },
 ];
 
 export const MOCK_PRODUCTS: Product[] = [

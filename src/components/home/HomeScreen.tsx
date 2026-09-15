@@ -47,7 +47,7 @@ export function HomeScreen({
             onClick={() => onSelectStory(story)}
             className="flex flex-col items-center gap-1 shrink-0"
           >
-            <div className="size-16 rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-rose-500 to-emerald-500">
+            <div className="size-12 rounded-full p-0.5 bg-gradient-to-tr from-amber-500 via-rose-500 to-emerald-500 sm:size-14">
               <img
                 src={story.storeAvatar}
                 alt={story.storeName}

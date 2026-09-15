@@ -24,17 +24,46 @@ import {
 } from "lucide-react";
 import { MerchantAiAssistant } from "@/components/ai/MerchantAiAssistant";
 import { InventoryManager } from "@/components/inventory/InventoryManager";
+import { OrderPipeline } from "@/components/seller/OrderPipeline";
+import { CodLedger } from "@/components/seller/CodLedger";
+import { SellerAnalytics } from "@/components/seller/SellerAnalytics";
+import { BulkOperations } from "@/components/seller/BulkOperations";
+import type { Product } from "@/types";
 
-export function ProfileScreen() {
-  const [accountMode, setAccountMode] = useState<"personal" | "seller">("personal");
+export function ProfileScreen({
+  accountMode = "personal",
+  onEnterSellerMode,
+  onExitSellerMode,
+  onAddToCart,
+}: {
+  accountMode?: "personal" | "seller";
+  onEnterSellerMode?: () => void;
+  onExitSellerMode?: () => void;
+  onAddToCart?: (product: Product) => void;
+}) {
   const [showQrModal, setShowQrModal] = useState(false);
 
   return (
     <div className="space-y-4 pb-20 text-right">
-      {/* Dynamic Account Mode Switcher */}
-      <div className="flex rounded-2xl bg-slate-200/70 p-1 dark:bg-slate-800/80">
+      {/* Explicit entry points keep shopping and selling workflows separate. */}
+      <div className="flex items-center justify-between rounded-2xl border border-emerald-100 bg-white p-3 shadow-sm dark:border-emerald-950/50 dark:bg-slate-900">
         <button
-          onClick={() => setAccountMode("personal")}
+          onClick={accountMode === "seller" ? onExitSellerMode : onEnterSellerMode}
+          className="flex items-center gap-2 rounded-xl bg-emerald-500 px-3 py-2 text-[11px] font-black text-white shadow-sm transition hover:bg-emerald-600"
+        >
+          {accountMode === "seller" ? <User size={14} /> : <Store size={14} />}
+          {accountMode === "seller" ? "العودة للتسوق" : "فتح لوحة التاجر"}
+        </button>
+        <div className="text-right">
+          <p className="text-[10px] font-bold text-slate-400">مساحة العمل الحالية</p>
+          <p className="text-xs font-black text-slate-800 dark:text-white">{accountMode === "seller" ? "إدارة المتجر" : "الحساب الشخصي"}</p>
+        </div>
+      </div>
+
+      {/* Personal account stays focused on shopping. */}
+      {false && <div className="flex rounded-2xl bg-slate-200/70 p-1 dark:bg-slate-800/80">
+        <button
+          onClick={() => undefined}
           className={`flex-1 rounded-xl py-2 text-xs font-black transition ${
             accountMode === "personal"
               ? "bg-white text-emerald-600 shadow-md dark:bg-slate-900 dark:text-emerald-400"
@@ -44,7 +73,7 @@ export function ProfileScreen() {
           👤 حساب شخصي (مشتري)
         </button>
         <button
-          onClick={() => setAccountMode("seller")}
+          onClick={() => undefined}
           className={`flex-1 rounded-xl py-2 text-xs font-black transition ${
             accountMode === "seller"
               ? "bg-white text-emerald-600 shadow-md dark:bg-slate-900 dark:text-emerald-400"
@@ -53,7 +82,7 @@ export function ProfileScreen() {
         >
           🏪 متجري (بائع)
         </button>
-      </div>
+      </div>}
 
       {/* HEADER SECTION: Identity & Avatar */}
       {accountMode === "personal" ? (
@@ -127,7 +156,7 @@ export function ProfileScreen() {
         </div>
       ) : (
         /* SELLER MODE HEADER */
-        <div className="relative overflow-hidden rounded-3xl bg-slate-900 p-5 text-white shadow-xl">
+        <div className="relative overflow-hidden rounded-3xl border border-emerald-100 bg-emerald-50 p-5 text-slate-900 shadow-sm dark:border-emerald-950/50 dark:bg-emerald-950/20 dark:text-white">
           <div className="flex items-start justify-between">
             <span className="rounded-full bg-emerald-500/20 px-3 py-1 text-[10px] font-black text-emerald-400 border border-emerald-500/30">
               Top Seller ★
@@ -135,7 +164,7 @@ export function ProfileScreen() {
             <div className="flex items-center gap-3">
               <div className="text-right">
                 <h2 className="text-base font-black">متجر بغداد الرقمي</h2>
-                <p className="text-[11px] text-slate-400">1.2K مبيعات • 98% تقييم إيجابي</p>
+                <p className="text-[11px] text-slate-500 dark:text-slate-300">1.2K مبيعات • 98% تقييم إيجابي</p>
               </div>
               <div className="grid size-14 place-items-center rounded-2xl bg-emerald-500 text-white font-black text-xl">
                 🏪
@@ -143,18 +172,18 @@ export function ProfileScreen() {
             </div>
           </div>
 
-          <div className="mt-4 grid grid-cols-3 gap-2 border-t border-slate-800 pt-3 text-center">
+          <div className="mt-4 grid grid-cols-3 gap-2 border-t border-emerald-200 pt-3 text-center dark:border-emerald-900">
             <div>
-              <span className="text-[10px] text-slate-400">الطلبات اليوم</span>
+              <span className="text-[10px] text-slate-500 dark:text-slate-300">الطلبات اليوم</span>
               <p className="text-sm font-black text-emerald-400">18</p>
             </div>
             <div>
               <span className="text-[10px] text-slate-400">وقت الرد</span>
-              <p className="text-sm font-black text-slate-200">5 دقائق</p>
+              <p className="text-sm font-black text-slate-700 dark:text-slate-100">5 دقائق</p>
             </div>
             <div>
-              <span className="text-[10px] text-slate-400">المنتجات النشطة</span>
-              <p className="text-sm font-black text-slate-200">42</p>
+              <span className="text-[10px] text-slate-500 dark:text-slate-300">المنتجات النشطة</span>
+              <p className="text-sm font-black text-slate-700 dark:text-slate-100">42</p>
             </div>
           </div>
         </div>
@@ -227,9 +256,13 @@ export function ProfileScreen() {
         </>
       ) : (
         /* SELLER DASHBOARD CONTROLS */
-        <div className="space-y-3">
+        <div className="grid gap-4 space-y-0 xl:grid-cols-2">
+          <div className="xl:col-span-2"><OrderPipeline /></div>
+          <CodLedger />
+          <SellerAnalytics />
+          <div className="xl:col-span-2"><BulkOperations /></div>
           <InventoryManager />
-          <MerchantAiAssistant />
+          <MerchantAiAssistant onAddToCart={onAddToCart} />
 
           <div className="grid grid-cols-2 gap-2">
             <button className="flex flex-col items-center justify-center rounded-3xl bg-emerald-500 p-4 text-white shadow-md hover:bg-emerald-600 transition space-y-2">
@@ -243,7 +276,7 @@ export function ProfileScreen() {
             </button>
           </div>
 
-          <div className="rounded-3xl border border-slate-100 bg-white p-2 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-1">
+          <div className="xl:col-span-2 rounded-3xl border border-slate-100 bg-white p-2 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-1">
             <button className="flex w-full items-center justify-between rounded-2xl p-3 text-xs font-bold text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800">
               <ChevronLeft size={16} className="text-slate-400" />
               <div className="flex items-center gap-3">

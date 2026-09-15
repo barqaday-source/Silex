@@ -16,6 +16,7 @@ export type Story = {
   storeAvatar: string;
   mediaUrl: string;
   createdAt: string;
+  productId?: string;
 };
 
 export type NotificationItem = {
@@ -61,6 +62,10 @@ export type ChatMessage = {
   orderDetails?: {
     orderId: string;
     status: string;
+  };
+  offerDetails?: {
+    amount: number;
+    expiresIn: string;
   };
 };
 

@@ -1,19 +1,24 @@
 import { useState, useEffect } from "react";
-import { X, Heart, Send } from "lucide-react";
-import { Story } from "@/types";
+import { ShoppingBag, X, Heart, Send } from "lucide-react";
+import { Product, Story } from "@/types";
 
 export function StoryViewerModal({
   story,
   onClose,
   onOpenStore,
+  products,
+  onAddToCart,
 }: {
   story: Story;
   onClose: () => void;
   onOpenStore: (storeId: string) => void;
+  products: Product[];
+  onAddToCart: (product: Product) => void;
 }) {
   const [progress, setProgress] = useState(0);
   const [liked, setLiked] = useState(false);
   const [message, setMessage] = useState("");
+  const storyProduct = products.find((product) => product.id === story.productId);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -69,8 +74,9 @@ export function StoryViewerModal({
           <img
             src={story.mediaUrl}
             alt="Story"
-            className="max-h-[75vh] w-full rounded-2xl object-cover"
+            className="aspect-[9/16] max-h-[76vh] w-full rounded-2xl object-cover"
           />
+          {storyProduct && <div className="absolute bottom-24 left-6 right-6 flex items-center justify-between rounded-2xl bg-black/55 p-3 text-white backdrop-blur-md"><div className="min-w-0 text-right"><p className="truncate text-xs font-black">{storyProduct.name}</p><p className="mt-1 text-[11px] font-bold text-emerald-300">{storyProduct.price.toLocaleString("ar-IQ")} د.ع</p></div><button type="button" onClick={() => onAddToCart(storyProduct)} className="flex shrink-0 items-center gap-1.5 rounded-xl bg-emerald-500 px-3 py-2 text-[11px] font-black text-white"><ShoppingBag size={14} /> شراء الآن</button></div>}
         </div>
 
         <div className="z-10 flex items-center gap-2 pt-4">

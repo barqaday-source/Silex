@@ -86,9 +86,9 @@ export function AuthScreen() {
           </div>
           
           <div className="space-y-1">
-            <h1 className="text-3xl font-black tracking-tight text-foreground">تاجر</h1>
+            <h1 className="text-3xl font-black tracking-tight text-foreground">صفصاف</h1>
             <p className="text-sm font-medium text-muted-foreground">
-              جامع لك كل المتاجر
+              Salix · تجارتك الاجتماعية بذكاء
             </p>
           </div>
         </div>

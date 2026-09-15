@@ -1,4 +1,5 @@
-import { X, CheckCircle2, Phone, MessageCircle, MapPin } from "lucide-react";
+import { CheckCircle2, Copy, MapPin, MessageCircle, X } from "lucide-react";
+import { useState } from "react";
 import { Store, Product } from "@/types";
 import { ProductCard } from "../product/ProductCard";
 
@@ -15,6 +16,7 @@ export function StoreProfileModal({
   onOpenProduct: (p: Product) => void;
   onAddToCart: (p: Product) => void;
 }) {
+  const [copied, setCopied] = useState(false);
   const storeProducts = products.filter((p) => p.seller_name === store.name);
 
   return (
@@ -47,21 +49,9 @@ export function StoreProfileModal({
             </p>
           )}
 
-          <div className="flex justify-center gap-3 pt-2">
-            <a
-              href={`https://wa.me/${store.phone}`}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-500"
-            >
-              <MessageCircle size={15} /> مراسلة واتساب
-            </a>
-            <a
-              href={`tel:${store.phone}`}
-              className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold dark:border-slate-800"
-            >
-              <Phone size={15} /> اتصال مباشر
-            </a>
+          <div className="flex flex-wrap justify-center gap-3 pt-2">
+            <button type="button" onClick={() => { if (store.phone) void navigator.clipboard?.writeText(store.phone); setCopied(true); }} className="flex items-center gap-2 rounded-xl border border-slate-200 px-4 py-2 text-xs font-bold dark:border-slate-800"><Copy size={15} /> {copied ? "تم نسخ الرقم" : "نسخ رقم المتجر"}</button>
+            <button type="button" className="flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2 text-xs font-bold text-white hover:bg-emerald-500"><MessageCircle size={15} /> بدء محادثة داخل سيلكس</button>
           </div>
         </div>
 

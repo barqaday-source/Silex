@@ -5,10 +5,12 @@ export function ProductCard({
   product,
   onOpen,
   onAddToCart,
+  onInquiry,
 }: {
   product: Product;
   onOpen: (p: Product) => void;
   onAddToCart: (p: Product) => void;
+  onInquiry?: (p: Product) => void;
 }) {
   return (
     <div className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-slate-100 bg-white p-3 shadow-sm transition hover:shadow-md dark:border-slate-800 dark:bg-slate-900">
@@ -35,9 +37,9 @@ export function ProductCard({
         <button onClick={() => onAddToCart(product)} className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-emerald-500 py-2 text-[11px] font-bold text-white transition hover:bg-emerald-600">
           <ShoppingBag size={14} /> إضافة
         </button>
-        <a href={`https://wa.me/?text=${encodeURIComponent(product.name)}`} target="_blank" rel="noreferrer" className="grid size-8 place-items-center rounded-xl bg-slate-100 text-slate-600 hover:bg-emerald-50 hover:text-emerald-600 dark:bg-slate-800 dark:text-slate-300">
+        <button type="button" onClick={() => (onInquiry ? onInquiry(product) : onOpen(product))} className="grid size-8 place-items-center rounded-xl bg-slate-100 text-slate-600 hover:bg-emerald-50 hover:text-emerald-600 dark:bg-slate-800 dark:text-slate-300" aria-label="استفسار داخل سيلكس">
           <MessageCircle size={15} />
-        </a>
+        </button>
       </div>
     </div>
   );
